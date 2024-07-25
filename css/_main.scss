@@ -1,0 +1,48 @@
+.main{
+	height: calc(100vh - 98px);
+	width: 100%;
+	// background:lightgray 50% / cover no-repeat #FFF;
+}
+.main__container{
+	padding-top: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.animate-logo{
+	& svg:not([class]){
+		animation-duration: .8s;
+		animation-fill-mode: forwards;
+		&:first-child{
+			transform: translateX(45px);
+		}
+		&:nth-of-type(2){
+			transform: translateX(35px);
+		}
+		&:nth-of-type(3){
+			transform: translateX(16px);
+		}
+		&:nth-of-type(4){
+			transform: translateX(16px);
+		}
+	}
+}
+.anime-circle{
+	margin-left: -21px;
+position: relative;
+z-index: -1;
+transition: .3s ease-in-out;
+}
+.anime-ch{
+	margin-left: -23px;
+	position: relative;
+	z-index: -2;
+}
+
+@keyframes animateLetters {
+	to {
+		transform: translateX(0);
+	}
+}
