@@ -15,6 +15,9 @@
 	flex-direction: column;
 	cursor: pointer;
 	transition: .3s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-duration: 1s;
+	opacity: 0;
 	& span{
 		height: 8px;
 		width: 100%;
@@ -32,7 +35,6 @@
 			}
 		}
 	}
-	
 }
 .header-nav{
 	position: fixed;
@@ -63,5 +65,14 @@
 			text-transform: uppercase;
 			color: $--dark-blue;
 		}
+	}
+}
+
+@keyframes burgerOpacity{
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
 	}
 }

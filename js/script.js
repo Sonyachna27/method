@@ -1,4 +1,5 @@
 const HMTLELEMENT = document.querySelector("html");
+const BURGER = document.querySelector('.burger');
 document.addEventListener("DOMContentLoaded", function () {
 	openMobMenu();
 	killPreload();
@@ -22,6 +23,8 @@ const killPreload = () =>{
 			animeCirclePath.style.fill = "#00E600";
 		}
 		setTimeout(() => animateCharacters(), 100);
+		setTimeout(() => BURGER.style.animationName = 'burgerOpacity', 500);
+
 		setTimeout(() => preloadWrap.style.display = "none", 1000);
 	});
 }
@@ -29,9 +32,9 @@ const killPreload = () =>{
 
 const openMobMenu = () =>{
 	const mobileMenu = document.querySelector(".header-nav");
-	const burger = document.querySelector('.burger');
-	if(burger){
-		burger.addEventListener('click', () =>{
+	
+	if(BURGER){
+		BURGER.addEventListener('click', () =>{
 			HMTLELEMENT.classList.toggle('active');
 		})
 	}
