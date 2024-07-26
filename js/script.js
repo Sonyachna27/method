@@ -47,69 +47,43 @@ const animateImagesFucntion = () =>{
 	const sliderInit = document.querySelector('.slider');
 
 	if (sliderInit) {
-		let atEnd = false;
-		let isScrolling = false;
+		// let atEnd = false;
+		// let atBeginning = false;
 	
 		const imagesSliderInit = new Swiper('.imagesSlider', {
 			direction: 'vertical',
 			slidesPerView: 1,
 			spaceBetween: 30,
 			mousewheel: true,
-			on: {
-				reachEnd: handleReachEnd,
-				reachBeginning: handleReachBeginning,
-				slideChange: handleSlideChange,
-			}
+		
 		});
 	
-		function handleReachEnd() {
-			imagesSliderInit.disable();
-			atEnd = true;
-		}
 	
-		function handleReachBeginning() {
-			imagesSliderInit.disable();
-			atEnd = false;
-		}
-	
-		function handleSlideChange() {
-			atEnd = false;
-		}
-	
-		function isElementInViewport(el) {
-			const rect = el.getBoundingClientRect();
-			return (
-				rect.top >= 0 &&
-				rect.left >= 0 &&
-				rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-				rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-			);
-		}
 	
 		let lastScrollTop = 0;
 	
-		window.addEventListener('wheel', function() {
+		window.addEventListener('wheel', function(event) {
 			let st = window.pageYOffset || document.documentElement.scrollTop;
 			const isSwiperDisabled = imagesSliderInit.allowTouchMove === false;
-			const isSwiperEnabled = imagesSliderInit.allowTouchMove === true;
-			console.log(lastScrollTop);
-			if (st > lastScrollTop) {
-				// Прокрутка вниз
-				console.log('Scrolling down');
-			} else if ((st < lastScrollTop) && isSwiperEnabled) {
-			
-				imagesSliderInit.enable();
-				console.log('Scrolling up');
 	
-				if (isSwiperDisabled && isElementInViewport(sliderInit)) {
-					imagesSliderInit.enable();
-				}
+			if (st > lastScrollTop  && event.deltaY < 0) {
+				// Прокрутка вгору на останньому слайді
+				imagesSliderInit.enable();
+			} else if (st < lastScrollTop &&  event.deltaY > 0) {
+				// Прокрутка вниз на першому слайді
+				imagesSliderInit.enable();
+			} else if (st > lastScrollTop  && event.deltaY > 0) {
+				// Прокрутка вниз на останньому слайді
+				imagesSliderInit.disable();
+			} else if (st < lastScrollTop  && event.deltaY < 0) {
+				// Прокрутка вгору на першому слайді
+				imagesSliderInit.disable();
 			}
 	
 			lastScrollTop = st <= 0 ? 0 : st; 
 		}, false);
 	}
-
+	
 
 }
 
