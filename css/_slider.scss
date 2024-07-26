@@ -6,6 +6,9 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
+	&.fixed-slider{
+		position: fixed;
+	}
 }
 .slider-block{
 	display: flex;

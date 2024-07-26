@@ -982,6 +982,9 @@ footer .logo {
   bottom: 0;
   right: 0;
 }
+.slider.fixed-slider {
+  position: fixed;
+}
 
 .slider-block {
   display: flex;
