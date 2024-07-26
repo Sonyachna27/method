@@ -46,44 +46,52 @@ const openMobMenu = () =>{
 const animateImagesFucntion = () =>{
 	const sliderInit = document.querySelector('.slider');
 
-	if (sliderInit) {
-		// let atEnd = false;
-		// let atBeginning = false;
+if (sliderInit) {
+  const imagesSliderInit = new Swiper('.imagesSlider', {
+    direction: 'vertical',
+    slidesPerView: 1,
+    spaceBetween: 30,
+    mousewheel: true,
+    parallax: true,
+		onlyInViewport: true,
+		releaseOnEdges:true,
+		touchReleaseOnEdges:true,
+		mousewheel: {
+		sensitivity: 1,
+		},
+		on: {
+    slideChange: function () {
+      setTimeout(function () {
+        imagesSliderInit.params.mousewheel.releaseOnEdges = false;
+      }, 500);
+    },
+    reachEnd: function() {
+      setTimeout(function () {
+        imagesSliderInit.params.mousewheel.releaseOnEdges = true;
+      }, 750);
+		},
+    reachBeginning: function() {
+      setTimeout(function () {
+        imagesSliderInit.params.mousewheel.releaseOnEdges = true;
+      }, 750);
+		}
 	
-		const imagesSliderInit = new Swiper('.imagesSlider', {
-			direction: 'vertical',
-			slidesPerView: 1,
-			spaceBetween: 30,
-			mousewheel: true,
-		
-		});
+	},
 	
-	
-	
-		let lastScrollTop = 0;
-	
-		window.addEventListener('wheel', function(event) {
-			let st = window.pageYOffset || document.documentElement.scrollTop;
-			const isSwiperDisabled = imagesSliderInit.allowTouchMove === false;
-	
-			if (st > lastScrollTop  && event.deltaY < 0) {
-				// Прокрутка вгору на останньому слайді
-				imagesSliderInit.enable();
-			} else if (st < lastScrollTop &&  event.deltaY > 0) {
-				// Прокрутка вниз на першому слайді
-				imagesSliderInit.enable();
-			} else if (st > lastScrollTop  && event.deltaY > 0) {
-				// Прокрутка вниз на останньому слайді
-				imagesSliderInit.disable();
-			} else if (st < lastScrollTop  && event.deltaY < 0) {
-				// Прокрутка вгору на першому слайді
-				imagesSliderInit.disable();
-			}
-	
-			lastScrollTop = st <= 0 ? 0 : st; 
-		}, false);
-	}
-	
+  });
+
+
+	let lastScrollTop = 0;
+	window.addEventListener("scroll", function() {
+		let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+		if (scrollTop > lastScrollTop) {
+			console.log("Прокрутка вниз");
+		} else {
+			console.log("Прокрутка вверх");
+		}
+		lastScrollTop = scrollTop;
+	});
+}
 
 }
 
