@@ -44,88 +44,108 @@ const openMobMenu = () =>{
 }
 
 const animateImagesFucntion = () =>{
-
 	const sliderInit = document.querySelector('.slider');
 
 	if (sliderInit) {
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting && entry.boundingClientRect.top <= 0) {
-					
-				}
-			});
-		}, { threshold: [0] });
-
-		observer.observe(sliderInit);
-		
 		let atEnd = false;
 		let isScrolling = false;
-
+	
 		const imagesSliderInit = new Swiper('.imagesSlider', {
 			direction: 'vertical',
 			slidesPerView: 1,
 			spaceBetween: 30,
 			mousewheel: true,
 			on: {
-				reachEnd: function() {
-					atEnd = true;
-					enablePageScroll();
-				},
-				reachBeginning: function() {
-					atEnd = true;
-					enablePageScroll();
-				},
-				fromEdge: function() {
-					disablePageScroll();
-				},
-				slideChange: function() {
-					atEnd = false;
+				reachEnd: handleReachEnd,
+				reachBeginning: handleReachBeginning,
+				slideChange: handleSlideChange,
+			}
+		});
+	
+		function handleReachEnd() {
+			imagesSliderInit.disable();
+			atEnd = true;
+		}
+	
+		function handleReachBeginning() {
+			imagesSliderInit.disable();
+			atEnd = false;
+		}
+	
+		function handleSlideChange() {
+			atEnd = false;
+		}
+	
+		function isElementInViewport(el) {
+			const rect = el.getBoundingClientRect();
+			return (
+				rect.top >= 0 &&
+				rect.left >= 0 &&
+				rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+				rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+			);
+		}
+	
+		let lastScrollTop = 0;
+	
+		window.addEventListener('wheel', function() {
+			let st = window.pageYOffset || document.documentElement.scrollTop;
+			const isSwiperDisabled = imagesSliderInit.allowTouchMove === false;
+			const isSwiperEnabled = imagesSliderInit.allowTouchMove === true;
+			console.log(lastScrollTop);
+			if (st > lastScrollTop) {
+				// Прокрутка вниз
+				console.log('Scrolling down');
+			} else if ((st < lastScrollTop) && isSwiperEnabled) {
+			
+				imagesSliderInit.enable();
+				console.log('Scrolling up');
+	
+				if (isSwiperDisabled && isElementInViewport(sliderInit)) {
+					imagesSliderInit.enable();
 				}
 			}
-		});
-
-
-		function enablePageScroll() {
-			if (atEnd) {
-				sliderInit.style.position = 'relative';
-
-			}
-		}
-
-		function disablePageScroll() {
-			sliderInit.style.position = 'fixed';
-		}
-
-		function scrollToNextSection(currentSection) {
-			const nextSection = currentSection.nextElementSibling;
-			if (nextSection) {
-				nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-			}
-		}
-
-		function scrollToPreviousSection(currentSection) {
-			const previousSection = currentSection.previousElementSibling;
-			if (previousSection) {
-				previousSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-			}
-		}
-
-		if (imagesSliderInit.isEnd || imagesSliderInit.isBeginning) {
-			enablePageScroll();
-		}
-
-		window.addEventListener('wheel', (event) => {
-			if (atEnd && !isScrolling) {
-				isScrolling = true;
-				setTimeout(() => {
-					if (event.deltaY > 0) {
-						scrollToNextSection(sliderInit);
-					} else if (event.deltaY < 0) {
-						scrollToPreviousSection(sliderInit);
-					}
-					isScrolling = false;
-				}, 100); 
-			}
-		});
+	
+			lastScrollTop = st <= 0 ? 0 : st; 
+		}, false);
 	}
+
+
 }
+
+
+		// function scrollToNextSection(currentSection) {
+		// 	const nextSection = currentSection.nextElementSibling;
+		// 	if (nextSection) {
+		// 		nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		// 	}
+		// }
+	
+		// function scrollToPreviousSection(currentSection) {
+		// 	const previousSection = currentSection.previousElementSibling;
+		// 	if (previousSection) {
+		// 		previousSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		// 	}
+		// }
+
+		// window.addEventListener('wheel', (event) => {
+		
+			// 	if(!atEnd){
+			// 		console.log(event.deltaY);
+			// 	}
+	
+			// 	if (atEnd && !isScrolling) {
+			// 		isScrolling = true;
+			// 		setTimeout(() => {
+	
+			// 			if ((event.deltaY > 0)) {
+			// 				console.log(event.deltaY);
+			// 				console.log(isScrolling);
+			// 				scrollToNextSection(sliderInit);
+			// 			} else if ((event.deltaY < 0) ) {
+			// 				scrollToPreviousSection(sliderInit);
+			// 			}
+			// 			isScrolling = false;
+			// 		}, 100); 
+			// 	}
+			// });
