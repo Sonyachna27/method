@@ -3,6 +3,7 @@ const BURGER = document.querySelector('.burger');
 document.addEventListener("DOMContentLoaded", function () {
 	openMobMenu();
 	killPreload();
+	animateImagesFucntion();
 });
 
 //функція для завантаження контенту  ат прибирання прелоад
@@ -18,6 +19,7 @@ const killPreload = () =>{
 		preloadWrap.addEventListener('click', ()=>{
 			preloadWrap.style.animationName = 'removeOpacityPreload';
 		preloadSwitch.style.animationName = 'changeSwitchPadding';
+		HMTLELEMENT.style.overflow = "visible";
 		function animateCharacters(){
 			animateLetters.forEach(ch => ch.style.animationName = 'animateLetters')
 			animeCirclePath.style.fill = "#00E600";
@@ -39,4 +41,91 @@ const openMobMenu = () =>{
 		})
 	}
 
+}
+
+const animateImagesFucntion = () =>{
+
+	const sliderInit = document.querySelector('.slider');
+
+	if (sliderInit) {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting && entry.boundingClientRect.top <= 0) {
+					
+				}
+			});
+		}, { threshold: [0] });
+
+		observer.observe(sliderInit);
+		
+		let atEnd = false;
+		let isScrolling = false;
+
+		const imagesSliderInit = new Swiper('.imagesSlider', {
+			direction: 'vertical',
+			slidesPerView: 1,
+			spaceBetween: 30,
+			mousewheel: true,
+			on: {
+				reachEnd: function() {
+					atEnd = true;
+					enablePageScroll();
+				},
+				reachBeginning: function() {
+					atEnd = true;
+					enablePageScroll();
+				},
+				fromEdge: function() {
+					disablePageScroll();
+				},
+				slideChange: function() {
+					atEnd = false;
+				}
+			}
+		});
+
+
+		function enablePageScroll() {
+			if (atEnd) {
+				sliderInit.style.position = 'relative';
+
+			}
+		}
+
+		function disablePageScroll() {
+			sliderInit.style.position = 'fixed';
+		}
+
+		function scrollToNextSection(currentSection) {
+			const nextSection = currentSection.nextElementSibling;
+			if (nextSection) {
+				nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		}
+
+		function scrollToPreviousSection(currentSection) {
+			const previousSection = currentSection.previousElementSibling;
+			if (previousSection) {
+				previousSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		}
+
+		if (imagesSliderInit.isEnd || imagesSliderInit.isBeginning) {
+			enablePageScroll();
+		}
+
+		window.addEventListener('wheel', (event) => {
+			if (atEnd && !isScrolling) {
+				isScrolling = true;
+				setTimeout(() => {
+					if (event.deltaY > 0) {
+						scrollToNextSection(sliderInit);
+					} else if (event.deltaY < 0) {
+						scrollToPreviousSection(sliderInit);
+					}
+					isScrolling = false;
+				}, 100); 
+			}
+		});
+	}
 }

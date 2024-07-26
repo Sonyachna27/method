@@ -1,17 +1,26 @@
 .main{
 	height: calc(100vh - 98px);
 	width: 100%;
-	// background:lightgray 50% / cover no-repeat #FFF;
+	padding-top: 220px;
+	// display: flex;
+  //   align-items: center;
+  //   justify-content: center;
 }
 .main__container{
-	padding-top: 200px;
+	
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
 }
 
 .animate-logo{
+	max-width: 509px;
+	width: 100%;
+	@media screen and (max-width:767px) {
+		& svg{
+			max-width: 40%;
+		}
+	}
 	& svg:not([class]){
 		animation-duration: .8s;
 		animation-fill-mode: forwards;
