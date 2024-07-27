@@ -3,10 +3,14 @@ const BURGER = document.querySelector('.burger');
 document.addEventListener("DOMContentLoaded", function () {
 	openMobMenu();
 	killPreload();
-	animateImagesFucntion();
+	heartAnimation();
+	scrollHeader();
+	playVideo();
+	fullSwiperSlider();
+	// animateImagesFucntion();
 });
 
-//функція для завантаження контенту  ат прибирання прелоад
+
 
 const killPreload = () =>{
 
@@ -26,7 +30,6 @@ const killPreload = () =>{
 		}
 		setTimeout(() => animateCharacters(), 100);
 		setTimeout(() => BURGER.style.animationName = 'burgerOpacity', 500);
-
 		setTimeout(() => preloadWrap.style.display = "none", 1000);
 	});
 }
@@ -40,112 +43,247 @@ const openMobMenu = () =>{
 			HMTLELEMENT.classList.toggle('active');
 		})
 	}
-
 }
-
-const animateImagesFucntion = () =>{
-	const sliderInit = document.querySelector('.slider');
-
-if (sliderInit) {
-	const sliderWrapper = document.querySelector('.sliderWrap');
-const sliderSlide = document.querySelectorAll('.full-slide');
-const sliderSlideLength = [...sliderSlide].length;
-const nextSection = sliderInit.nextElementSibling;
-const previousSection = sliderInit.previousElementSibling;
-
-observer()
-	const imagesSliderInit = new Swiper('.imagesSlider', {
-		direction: 'vertical',
-		slidesPerView: 1,
-		spaceBetween: 30,
-		mousewheel: {
-			sensitivity: 1,
-		},
-		parallax: true,
-		onlyInViewport: true,
-		releaseOnEdges: true,
-		touchReleaseOnEdges: true,
-		on: {
-			slideChange: function () {
-				setTimeout(function () {
-					imagesSliderInit.params.mousewheel.releaseOnEdges = false;
-				}, 500);
-			},
-			reachEnd: function () {
-				setTimeout(function () {
-					imagesSliderInit.params.mousewheel.releaseOnEdges = true;
-				}, 750);
-			},
-	
-			reachBeginning: function () {
-				setTimeout(function () {
-					imagesSliderInit.params.mousewheel.releaseOnEdges = true;
-				}, 750);
-			}
-		}
-	});
-	function observer() {
-		const options = {
-			root: null,
-			rootMargin: '0px',
-			threshold: 0.8
-		}
-	
-		const observer = new IntersectionObserver((entries, observer) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-
-					const tagTarget = entry.target;
-					const tagTargetLabels = (tagTarget.ariaLabel).split(' / ');
-					const firstNumber = parseInt(tagTargetLabels[0], 10);
-						if((firstNumber === 1) ){
-							sliderInit.scrollIntoView({ behavior: 'smooth', block: 'start' });
-							sliderWrapper.classList.add('fixed');
+const scrollHeader = () =>{
+	const scrollHeader = document.querySelector('.scroll-header');
+	if(scrollHeader){
+		window.addEventListener("scroll", function () {
+			let lastScrollTop = 0;
+			const headerLogo = document.querySelector('.hidden-logo')
+			const windowInnerWidth = window.innerWidth;
+			const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+		
+				if (scrollTop > lastScrollTop) {
+					if (scrollTop > 100) {
+						scrollHeader.classList.add("fixed-header-nav");
+						scrollHeader.style.animationName = "smoothScroll";
+						// setTimeout(() => BURGER.style.animationName = 'burgerOpacity', 300);
+						setTimeout(() => headerLogo.style.display = 'block', 100);
+						setTimeout(() => headerLogo.style.animationName = 'burgerOpacity', 500);
 					}
-					
-					sliderSlide.forEach((slide) => slide.addEventListener("wheel", (event) => {
-						event.preventDefault();
-						let delta = event.deltaY; 
-						if(((firstNumber === sliderSlideLength ) && (delta < 0))){
-								sliderWrapper.classList.add('fixed');
-								sliderInit.scrollIntoView({ behavior: 'smooth', block: 'start' });
-						} 
-						if(((firstNumber === 1) && (delta > 0))){
-							sliderWrapper.classList.add('fixed');
-							sliderInit.scrollIntoView({ behavior: 'smooth', block: 'start' });
-						}
-						if(((firstNumber === 1) && (delta < 0)) ){
-							previousSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
-								sliderWrapper.classList.remove('fixed');
-						} 
-						if((firstNumber === sliderSlideLength) && (delta > 0)){
-							sliderWrapper.classList.remove('fixed');
-							nextSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
-						}
-					}
-					)); 
+				} else if (scrollTop <= 0) {
+					scrollHeader.classList.remove("fixed-header-nav");
+					scrollHeader.style.animationName = "removeSmoothScroll";
+					// setTimeout(() => BURGER.style.animationName = 'removeBurgerOpacity', 300);
+					setTimeout(() => headerLogo.style.animationName = 'removeBurgerOpacity', 300);
+					setTimeout(() => headerLogo.style.display = 'none', 500);
 				}
-			})
-		}, options)
+				lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+				// updateMenuPosition(scrollTop);
+			}
+		)
+	}
 
-		const arr = sliderSlide;
-		arr.forEach(i => {
-			observer.observe(i)
-		})
+};
+
+const playVideo = () =>{
+	const startVideoBtns = document.querySelectorAll('.start-video');
+	const videos = document.querySelectorAll('video');
+
+	startVideoBtns.forEach((startBtn) => {
+			startBtn.addEventListener('click', () => {
+				
+					const btnData = startBtn.getAttribute('data-btn');
+					videos.forEach((video) => {
+							const videoData = video.getAttribute('data-video');
+							const videoPosterAtribute = video.getAttribute('poster');
+
+							if (btnData === videoData) {
+									if (video.paused) {
+											video.play();
+											video.removeAttribute('poster');
+											startBtn.classList.add('play');
+									} else {
+											video.pause();
+											video.setAttribute('poster', `${videoPosterAtribute}`);
+											startBtn.classList.remove('play');
+									}
+							}
+					});
+			});
+	});
+};
+
+
+
+// const animateImagesFucntion = () =>{
+// 	const sliderSection = document.querySelector('.slider');
+// 	let currentIndex = 0;
+// 	if(sliderSection){
+// 		const observer = new IntersectionObserver((entries) => { 
+// 			entries.forEach(entry => {
+// 			if (entry.isIntersecting) {
+// 				sliderSection.classList.add("see");
+// 		}
+	
+// });
+// }, {
+// root: null,
+// rootMargin: '0px',
+// threshold: 0.6 
+// });
+
+// // Спостерігаємо за секцією slider
+// observer.observe(sliderSection);
+   
+// }
+
+// const sections = document.querySelectorAll('.section');
+// let isThrottled = false;
+
+// // Обновление активной секции
+// function updateActiveSection(index) {
+// 	sections.forEach((section, i) => {
+// 			if (i === index) {
+// 					section.classList.add('active');
+// 					section.classList.remove('inactive');
+// 					section.style.transform = `translateY(${0}%)`;
+// 			} else {
+// 					section.classList.remove('active');
+// 					section.classList.add('inactive');
+// 					section.style.transform = `translateY(${(i - index) * 100}%)`;
+// 			}
+// 	});
+// }
+
+// function changeSection(delta) {
+// 	if (isThrottled) return;
+
+// 	const newIndex = currentIndex + delta;
+
+// 	if (newIndex >= 0 && newIndex < sections.length) {
+// 			currentIndex = newIndex;
+// 			updateActiveSection(currentIndex);
+// 	}
+
+
+// 	isThrottled = true;
+// 	setTimeout(() => {
+// 			isThrottled = false;
+// 	}, 1000);
+// }
+
+// window.addEventListener('wheel', (e) => {
+// 	if (sliderSection.classList.contains("see")) {
+// 			if (e.deltaY > 0) {
+// 					changeSection(1);
+// 			} else if (e.deltaY < 0) {
+// 					changeSection(-1);
+// 			}
+// 	}
+// });
+
+// window.addEventListener('keydown', (e) => {
+// 	if (sliderSection.classList.contains("see")) {
+// 			if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+// 					changeSection(1); // Переключение на следующую секцию
+// 					// if (currentIndex === sections.length - 1) {
+// 					// 		setTimeout(() => {
+// 					// 				// sliderSection.classList.remove('fixed');
+// 					// 		}, 1000); 
+// 					// }
+// 			} else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+// 					changeSection(-1); 
+// 					// if (currentIndex === 0) {
+// 					// 		setTimeout(() => {
+// 					// 				// sliderSection.classList.remove('fixed');
+// 					// 		}, 1000); 
+// 					// }
+// 			}
+// 	}
+// });
+
+
+
+
+// let touchStartY = 0;
+// let touchEndY = 0;
+
+// window.addEventListener('touchstart', (e) => {
+// 	touchStartY = e.changedTouches[0].screenY;
+// });
+
+// window.addEventListener('touchend', (e) => {
+// 	touchEndY = e.changedTouches[0].screenY;
+// 	handleGesture();
+// });
+
+// function handleGesture() {
+// 	if (sliderSection.classList.contains("see")) {
+// 			if (touchEndY < touchStartY) {
+// 					// Свайп вверх
+// 					changeSection(1);
+// 			} else if (touchEndY > touchStartY) {
+// 					// Свайп вниз
+// 					changeSection(-1);
+// 			}
+// 	}
+// }
+
+// // Устанавливаем начальную активную секцию
+// updateActiveSection(currentIndex);
+
+// }//кінець функції
+
+
+const heartAnimation = () =>{
+const heartWrap = document.querySelector('.heart');
+	if(heartWrap){
+		const customOrder = [0, 2, 4, 7, 9, 11, 12, 13, 10, 8, 6, 3, 1, 5];
+		const heartOptions = {
+				root: null,
+				rootMargin: "0px",
+				threshold: .2, 
+		};
+		const heartCallback = function (entries) {
+			entries.forEach(entry => {
+					if (entry.isIntersecting) {
+							const target = entry.target;
+							const imgs = [...document.querySelectorAll('.heart-img')];
+							const index = imgs.indexOf(target);
+									const orderIndex = customOrder.indexOf(index);
+									
+									if (orderIndex >= 0) {
+											const delay = orderIndex * 0.1;	
+											target.style.animationDelay = `${delay}s`;
+											target.style.animationName = 'heartAnimation';
+											target.classList.add('animate');
+									}
+					}
+			});
+	};
+	
+	const heartObserver = new IntersectionObserver(heartCallback, heartOptions);
+	
+	document.querySelectorAll('.heart-img').forEach(img => {
+			heartObserver.observe(img);
+	});
 
 }
 }
-
-
-
-
-
+const fullSwiperSlider = () =>{
+	const fullSliderInit = document.querySelector('.fullSlider');
+	if(fullSliderInit){
+	
+		var fullSlider = new Swiper(".fullSlider", {
+      
+      freeMode: true,
+      watchSlidesProgress: true,
+			pagination: {
+        el: ".full-pagination",
+				clickable: true,
+				type: 'bullets',
+      },
+    });
+    var fullSlider2 = new Swiper(".fullSlider2", {
+     pagination: {
+        el: ".full-pagination",
+				clickable: true,
+				type: 'bullets',
+      },
+      thumbs: {
+        swiper: fullSlider,
+      },
+    });
+	}
 }
-
-// if((firstNumber === 1) && (delta > 0)){
-							// 	console.log('down');
-							// 	previousSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-							// }
-							// if((firstNumber === sliderSlideLength) && (delta > 0)){
-							// 	previousSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-							// }
