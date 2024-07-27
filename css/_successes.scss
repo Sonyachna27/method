@@ -8,7 +8,9 @@
 	display: flex;
 	overflow: hidden;
 	overflow-x: auto;
-	
+	@media screen and (max-width:767px) {
+		flex-direction: column;
+	}
 }
 .captured__item{
 	min-width: calc(100% / 3);

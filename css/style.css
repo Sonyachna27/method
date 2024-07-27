@@ -161,6 +161,7 @@ body {
   font-style: normal;
   font-weight: 350;
   line-height: normal;
+  text-align: center;
   color: #1F305E;
 }
 .under__link:after {
@@ -694,6 +695,11 @@ body {
   display: flex;
   overflow: hidden;
   overflow-x: auto;
+}
+@media screen and (max-width: 767px) {
+  .captured-scroll {
+    flex-direction: column;
+  }
 }
 
 .captured__item {
