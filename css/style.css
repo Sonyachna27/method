@@ -689,6 +689,7 @@ body {
 
 .successes__title {
   margin-bottom: 200px;
+  padding: 0 10px;
 }
 
 .captured-scroll {
@@ -1032,6 +1033,11 @@ div.eigth img {
   display: flex;
   gap: 30px;
 }
+@media screen and (max-width: 767px) {
+  .news__container {
+    flex-direction: column;
+  }
+}
 
 .news__item {
   display: flex;
@@ -1039,11 +1045,18 @@ div.eigth img {
   width: calc(33.3333333333% - 16.5px);
   transition: 0.3s ease-in-out;
 }
+@media screen and (max-width: 767px) {
+  .news__item {
+    width: 100%;
+  }
+}
 .news__item:hover a:has(img) {
   border-color: #00E600;
+  aspect-ratio: 1/1;
 }
 .news__item a:has(img) {
   border-radius: 50%;
+  aspect-ratio: 1/1;
   border: 5px solid transparent;
   flex-grow: 1;
 }
