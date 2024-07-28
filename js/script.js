@@ -111,10 +111,61 @@ const horizontalScroll = () =>{
 		if(horizontalSection.length >=1){
 			gsap.registerPlugin(ScrollTrigger);
 			
-			{
-				const process = document.querySelector('.process');
+			// {
+			// 	const process = document.querySelector('.process');
+			// 	if ((typeof(process) != 'undefined' && process != null)) {
+					
+			// 		let sections = gsap.utils.toArray('.process__item');
+			// 		process.style.width = `calc(100% * ${sections.length})`;
+			// 	let widthSec=	sections.forEach(item=> item.style.width = `calc((100% / ${sections.length}) / 3)`);
+			// 		console.log(sections.length);
+			// 		gsap.to(sections, {
+			// 			xPercent: -100 * (sections.length - 1),
+			// 			ease: "none",
+			// 			scrollTrigger: {
+			// 				trigger: process,
+			// 				markers: false,
+			// 				scrub: 1,
+			// 				pin: true,
+			// 				snap: 1 / (sections.length - 1),
+			// 				end: () => "+=" + document.querySelector(".process").offsetWidth
+			// 			},
+			// 		});
+			// 	}
+			// }
+			ScrollTrigger.matchMedia({
+				// Large screens
+				"(min-width: 768px)": function() {
+					const process = document.querySelector('.process');
+					if ((typeof(process) != 'undefined' && process != null)) {
+						
+						let sections = gsap.utils.toArray('.process__item');
+						process.style.width = `calc(100% * ${sections.length})`;
+					sections.forEach(item=> item.style.width = `calc((100% / ${sections.length}) / 3)`);
+					
+						gsap.to(sections, {
+							xPercent: -100 * (sections.length - 1),
+							ease: "none",
+							scrollTrigger: {
+								trigger: process,
+								markers: false,
+								scrub: 1,
+								pin: true,
+								snap: 1 / (sections.length - 1),
+								end: () => "+=" + document.querySelector(".process").offsetWidth
+							},
+						});
+					}
+				},
+				// Small screens
+				"(max-width: 767px)": function() {
+						const process = document.querySelector('.process');
 				if ((typeof(process) != 'undefined' && process != null)) {
+					
 					let sections = gsap.utils.toArray('.process__item');
+					process.style.width = `calc(100% * ${sections.length})`;
+				sections.forEach(item=> item.style.width = `100%`);
+					
 					gsap.to(sections, {
 						xPercent: -100 * (sections.length - 1),
 						ease: "none",
@@ -128,8 +179,8 @@ const horizontalScroll = () =>{
 						},
 					});
 				}
-			}
-
+				}
+			})
 		}
 }
 

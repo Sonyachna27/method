@@ -187,6 +187,7 @@ body {
 .item__content a {
   margin: 0 auto;
   margin-top: auto;
+  bottom: 0;
 }
 
 .preload {
@@ -698,15 +699,9 @@ body {
 }
 
 .captured__item {
-  width: 11.2359550562%;
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-@media screen and (max-width: 767px) {
-  .captured__item {
-    width: 100%;
-  }
 }
 .captured__item img {
   aspect-ratio: 1;
@@ -715,13 +710,17 @@ body {
      object-fit: cover;
   height: 57%;
 }
+@media screen and (max-width: 767px) {
+  .captured__item img {
+    height: 40%;
+  }
+}
 
 .process-wrap {
   overflow: hidden;
 }
 
 .process {
-  width: 300%;
   display: flex;
   flex-wrap: nowrap;
 }
