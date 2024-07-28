@@ -110,7 +110,7 @@ const horizontalScroll = () =>{
 	const horizontalSection = document.querySelectorAll('.captured-scroll');
 		if(horizontalSection.length >=1){
 			gsap.registerPlugin(ScrollTrigger);
-
+			
 			{
 				const process = document.querySelector('.process');
 				if ((typeof(process) != 'undefined' && process != null)) {
@@ -129,6 +129,7 @@ const horizontalScroll = () =>{
 					});
 				}
 			}
+
 		}
 }
 
