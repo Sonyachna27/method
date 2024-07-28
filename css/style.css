@@ -694,8 +694,7 @@ body {
 
 .captured-scroll {
   display: flex;
-  overflow: hidden;
-  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 @media screen and (max-width: 767px) {
   .captured-scroll {
@@ -704,13 +703,32 @@ body {
 }
 
 .captured__item {
-  min-width: 33.3333333333%;
+  width: 11.2359550562%;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+}
+.captured__item img {
+  aspect-ratio: 1;
+  flex-grow: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 57%;
+}
+
+.process-wrap {
+  overflow: hidden;
+}
+
+.process {
+  width: 300%;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .heart {
   padding: 0 0 200px 0;
+  background-color: #ffffff;
 }
 .heart .under__link {
   margin: 0 auto;
