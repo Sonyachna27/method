@@ -696,17 +696,17 @@ body {
   display: flex;
   flex-wrap: nowrap;
 }
-@media screen and (max-width: 767px) {
-  .captured-scroll {
-    flex-direction: column;
-  }
-}
 
 .captured__item {
   width: 11.2359550562%;
   display: flex;
   flex-direction: column;
   height: 100vh;
+}
+@media screen and (max-width: 767px) {
+  .captured__item {
+    width: 100%;
+  }
 }
 .captured__item img {
   aspect-ratio: 1;
