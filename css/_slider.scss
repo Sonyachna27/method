@@ -1,65 +1,35 @@
 .slider{
-	height: 100vh;
-	width: 100vw;
+	// height: 100vh;
 	overflow: hidden;
-	// &.fixed{
-	// 	position: fixed;
-	// 	top: 0;
-	// 	left: 0;
-	// 	right: 0;
-	// 	bottom: 0;
-	// }
+	// overscroll-behavior: none;
 }
-.sliderWrap{
-width: 100vw;
-height: 100vh;
-position: relative;
+.slider-wrap{
+	// display: flex;
+  // -ms-flex-wrap: nowrap;
+  // flex-wrap: nowrap;
+}
+.full-slide{
+	// height: 100vh;
+	// width: 100%;
+
 }
 .slider-block{
 	display: flex;
-	scroll-snap-align: start;
-	height: 100%;
+	height: 100vh;
 	width: 100%;
-	
-	transition: transform 0.8s ease-in-out;
-	position: absolute;
-	top: 0;
-	left: 0;
-	will-change: transform; /* Оптимизация для более плавных анимаций */
-	background-size: cover;  /* Покрытие фона */
-	background-position: center; /* Центрирование фона */
-	// z-index: 0;
+	overflow: hidden;
 	& img{
-		width: 50%;
+		width: 100%;
 		flex-grow: 1;
-	height: 100%;
-	object-fit: cover;
+		height: 100%;
+		object-fit: cover;
 	}
 }
 .rigth,
 .left{
 	width: 50%;
-	
+height: 100%;
 		& img{
 			max-width: 100%;
 		}
-}
-.right,
-.left{
-	animation-duration: .5s;
-}
-.swiper {
-	width: 100%;
-	height: 100%;
-}
-
-.test{
-	padding: 200px 0;
-}
-.section.active {
-	z-index: 1; /* Поднимаем активную секцию */
-}
-
-.section.inactive {
-	z-index: 0; /* Снижаем неактивную секцию */
 }

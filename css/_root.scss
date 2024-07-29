@@ -23,13 +23,16 @@
   font-weight: 500;
 }
 
-// html {
-//   overflow: hidden;
-// }
+html {
+  overflow: hidden;
+}
 
 // *{
 // 	border: 1px solid red;
 // }
+html, body{
+	height: auto;
+}
 // variables
 
 $--white: #ffffff;
@@ -129,7 +132,7 @@ background-color: $--green;
 	& p{
 		margin-bottom: 20px;
 		&:nth-last-of-type(1){
-			margin-bottom: 60px;
+			margin-bottom: auto;
 		}
 	}
 	& a{
