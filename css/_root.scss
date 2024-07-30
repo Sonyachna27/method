@@ -146,15 +146,10 @@ background-color: $--green;
 		bottom: 0;
 	}
 }
-// html {
-// 	margin: 0;
-// 	padding: 0;
-// 	overflow: hidden; /* Убираем прокрутку для pagePiling */
-// 	font-family: Arial, sans-serif;
-// }
+
 section.section {
 	text-align: center;
-	height: 100vh; /* Высота секции на полный экран */
+	height: 100vh; 
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -167,10 +162,11 @@ section.section {
 .content {
 	position: relative;
 	top: 100vh;
+	margin-bottom: 100vh
 }
 
 .normal-scroll {
-	overflow: auto !important; /* Включаем прокрутку после третьей секции */
+	overflow: auto !important; 
 	&.header-active {
 		overflow: hidden !important;
 	}
