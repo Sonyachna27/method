@@ -204,11 +204,6 @@ body {
 section.section {
   text-align: center;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2em;
-  color: #fff;
 }
 
 .main {
@@ -218,7 +213,6 @@ section.section {
 .content {
   position: relative;
   top: 100vh;
-  margin-bottom: 100vh;
 }
 
 .normal-scroll {
@@ -560,36 +554,10 @@ section.section {
     transform: translateX(0);
   }
 }
-.slider {
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
-
-.slider-wrap {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
-
-.full-slide {
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
 .slider-block {
   display: flex;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
+  height: 100%;
 }
-
 .slider-block img {
   width: 100%;
   flex-grow: 1;
@@ -602,8 +570,56 @@ img.right,
 img.left {
   width: 50%;
   height: 100%;
+  animation-duration: 0.5s;
+  transition: 0.8s ease;
 }
 
+img.right {
+  transform: translateY(0%);
+}
+.active img.right {
+  animation-name: animateRightImages;
+}
+
+img.left {
+  transform: translateY(0%);
+}
+.active img.left {
+  animation-name: animateLeftImages;
+}
+
+@keyframes animateRightImages {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes killAnimateRightImages {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes animateLeftImages {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes killAnimateLeftImages {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
 .mission {
   padding: 200px 0;
   background: #FFF;
@@ -880,6 +896,7 @@ div.eigth img {
   background-color: #1F305E;
   color: #ffffff;
   overflow: hidden;
+  margin-top: 100vh;
 }
 
 .footer__container {

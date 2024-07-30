@@ -1,44 +1,66 @@
 
-
-.slider {
-  height: 100vh;
-	position: relative;
-	overflow: hidden;
+.slider-block{
+	display: flex;
+	height: 100%;
+	& img {
+		width: 100%;
+		flex-grow: 1;
+		height: 100%;
+		object-fit: cover;
+	}
 }
-
-.slider-wrap {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
-
-.full-slide {
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  position: absolute;
-	top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.slider-block {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
-
-.slider-block img {
-  width: 100%;
-  flex-grow: 1;
-  height: 100%;
-  object-fit: cover;
-}
-
 img.right,
 img.left {
   width: 50%;
   height: 100%;
+	animation-duration: .5s;
+	transition: .8s ease;
+	// animation-fill-mode: forwards;
+	// transform: translateY(0);
+}
+img.right{
+	// animation-name:killAnimateRightImages;
+transform: translateY(0%);
+	.active &{
+		animation-name: animateRightImages;
+			}
+}
+img.left{
+// animation-name:killAnimateRLeftImages;
+transform: translateY(0%);
+	.active &{
+		animation-name: animateLeftImages;
+			}
+}
+@keyframes animateRightImages {
+	0%{
+		transform: translateY(-100%);
+	}
+	100%{
+		transform: translateY(0);
+	}
+}
+@keyframes killAnimateRightImages {
+	0%{
+		transform: translateY(0%);
+	}
+	100%{
+		transform: translateY(-100%);
+	}
+}
+@keyframes animateLeftImages {
+	0%{
+		transform: translateY(100%);
+	}
+	100%{
+		transform: translateY(0);
+	}
+}
+@keyframes killAnimateLeftImages {
+	0%{
+		transform: translateY(0%);
+	}
+	100%{
+		transform: translateY(100%);
+	}
 }
