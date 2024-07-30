@@ -23,8 +23,12 @@
   font-weight: 500;
 }
 
-html {
+html:has(.preload) {
   overflow: hidden;
+}
+
+	 .header-active {
+	overflow: hidden;
 }
 
 // *{
@@ -34,6 +38,7 @@ html, body{
 	height: auto;
 }
 // variables
+
 
 $--white: #ffffff;
 $--dark-blue: #1F305E; 
@@ -140,4 +145,36 @@ background-color: $--green;
 		margin-top: auto;
 		bottom: 0;
 	}
+}
+// html {
+// 	margin: 0;
+// 	padding: 0;
+// 	overflow: hidden; /* Убираем прокрутку для pagePiling */
+// 	font-family: Arial, sans-serif;
+// }
+section.section {
+	text-align: center;
+	height: 100vh; /* Высота секции на полный экран */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2em;
+	color: #fff;
+}
+.main {
+	background-color: #fff;
+}
+.content {
+	position: relative;
+	top: 100vh;
+}
+
+.normal-scroll {
+	overflow: auto !important; /* Включаем прокрутку после третьей секции */
+	&.header-active {
+		overflow: hidden !important;
+	}
+}
+#pp-nav {
+	display: none;
 }

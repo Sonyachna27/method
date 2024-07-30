@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	playVideo();
 	fullSwiperSlider();
 	horizontalScroll();
-	animateImagesFunction();
+	updateScrollLengthDivs();
+	fullHorizontalScroll();
+	// animateImagesFunction();
 });
 
 
@@ -41,7 +43,7 @@ const openMobMenu = () =>{
 	
 	if(BURGER){
 		BURGER.addEventListener('click', () =>{
-			HMTLELEMENT.classList.toggle('active');
+			HMTLELEMENT.classList.toggle('header-active');
 		})
 	}
 }
@@ -109,6 +111,7 @@ const playVideo = () =>{
 const horizontalScroll = () => {
   const process = document.querySelector('.process');
   if ((typeof(process) != 'undefined' && process != null)) {
+		gsap.registerPlugin(ScrollTrigger);
     let sections = gsap.utils.toArray('.process__item');
     ScrollTrigger.matchMedia({
       "(min-width: 768px)": function() {
@@ -145,61 +148,169 @@ const horizontalScroll = () => {
   }
 }
 
-const animateImagesFunction = () => {
-  const sliderWrapBlock = document.querySelector('.slider');
-  if ((typeof(sliderWrapBlock) != 'undefined' && sliderWrapBlock != null)) {
-    let fullSlide = gsap.utils.toArray('.full-slide');
-    gsap.to(fullSlide, {
-      yPercent: -100 * (fullSlide.length - 1),
+
+const fullHorizontalScroll = () => {
+  const fullProcess = document.querySelector('.full-wrap');
+  if (fullProcess) {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    const fullSwiperSliders = gsap.utils.toArray('.full__item');
+    fullProcess.style.width = `calc(100% * ${fullSwiperSliders.length})`;
+	
+    fullSwiperSliders.forEach(item => item.style.width = `100%`);
+    
+    fullSwiperSliders.forEach((slider, i) => {
+      ScrollTrigger.create({
+        trigger: slider,
+        // start: "left center",
+        // end: "right center",
+        onUpdate: (self) => {
+          if (self.isActive) {
+            slider.classList.add('visible-slide');
+          } else {
+            slider.classList.remove('visible-slide');
+          }
+        },
+        markers: false
+      });
+    });
+	
+    gsap.to(fullSwiperSliders, {
+      xPercent: -100 * (fullSwiperSliders.length - 1),
       ease: "none",
       scrollTrigger: {
-        trigger: sliderWrapBlock,
-        markers: true, 
+        trigger: fullProcess,
+        markers: false,
         scrub: 1,
         pin: true,
-				refreshPriority: 1,
-        end: () => "+=" + document.querySelector(".slider").offsetHeight
-      },
-    });
-
-    let rightImages = gsap.utils.toArray('.right');
-    rightImages.forEach((image, index) => {
-			console.log(image.parentElement);
-      gsap.fromTo(image, 
-        { yPercent: 100, autoAlpha: 0 }, 
-        { 
-          yPercent: 0, autoAlpha: 1,
-          ease: "none",
-					markers: true,
-          scrollTrigger: {
-            trigger: image.parentElement, 
-            start: '100%', 
-            // end: () => "+=" + image.parentElement.offsetHeight,
-            end: "50% 100%",
-            scrub: 1
-          }
-        }
-      );
-    });
-    let leftImages = gsap.utils.toArray('.left');
-    leftImages.forEach((leftImage, index) => {
-      gsap.fromTo(leftImage, 
-        { yPercent: -100, autoAlpha: 0 }, 
-        { 
-          yPercent: 0, autoAlpha: 1,
-          ease: "none",
-					markers: true,
-          scrollTrigger: {
-            trigger: leftImage.parentElement, 
-            start: '100', 
-            // end: "50% 100%",
-            scrub: 1
-          }
-        }
-      );
+        end: () => "+=" + fullProcess.offsetWidth
+      }
     });
   }
-}
+};
+
+const updateScrollLengthDivs = () => {
+  const fullProcess = document.querySelector('.full-wrap');
+  const scrollLengthContainers = document.querySelectorAll('.full-scroll-length'); 
+  
+  if (fullProcess && scrollLengthContainers.length > 0) {
+    const fullSwiperSliders = document.querySelectorAll('.full__item');
+    
+    scrollLengthContainers.forEach(scrollLengthContainer => {
+      scrollLengthContainer.innerHTML = '';
+
+      fullSwiperSliders.forEach(() => {
+        const newDiv = document.createElement('div');
+        scrollLengthContainer.appendChild(newDiv);
+      });
+    });
+  }
+};
+
+
+
+// const animateImagesFunction = () => {
+//   gsap.registerPlugin(ScrollTrigger);
+
+//   let currentIndex = 0;
+//   let animating;
+//   let swipePanels = gsap.utils.toArray(".full-slide");
+
+ 
+//   let reversedPanels = [...swipePanels].reverse();
+//   reversedPanels.forEach((panel, index) => {
+//     gsap.set(panel, { zIndex: index });
+//   });
+
+//   // Створення спостерігача та його відключення на початку
+//   let intentObserver = ScrollTrigger.observe({
+//     type: "wheel,touch",
+//     onUp: () => !animating && gotoPanel(currentIndex - 1, false),
+//     onDown: () => !animating && gotoPanel(currentIndex + 1, true),
+//     tolerance: 10,
+//     preventDefault: true
+//   });
+//   intentObserver.disable();
+
+//   // Обробка анімацій swipe panels
+//   function gotoPanel(index, isScrollingDown) {
+//     animating = true;
+//     // Повернення до нормального скролу, якщо ми досягли кінця або повернулися до початку
+//     if ((index === swipePanels.length && isScrollingDown) || (index === -1 && !isScrollingDown)) {
+//       intentObserver.disable();
+//       return;
+//     }
+
+//     let target = isScrollingDown ? swipePanels[currentIndex] : swipePanels[index];
+//     gsap.to(target, {
+//       yPercent: isScrollingDown ? -100 : 0,
+//       duration: 0.75,
+//       onComplete: () => (animating = false)
+//     });
+
+//     currentIndex = index;
+//   }
+
+//   // Закріплення swipe секції та ініціація спостерігача
+//   ScrollTrigger.create({
+//     trigger: ".slider",
+//     pin: true,
+//     start: "top top",
+//     onEnter: () => {
+//       intentObserver.enable();
+//       gotoPanel(currentIndex + 1, true);
+//     },
+//     onEnterBack: () => {
+//       intentObserver.enable();
+//       gotoPanel(currentIndex - 1, false);
+//     }
+//   });
+
+//   // Анімація зображень всередині слайдів
+//   swipePanels.forEach((slide, index) => {
+//     slide.classList.add(`slide-${index}`);
+    
+//     let rightImages = slide.querySelectorAll('.right');
+//     rightImages.forEach((image) => {
+//       gsap.fromTo(image, 
+//         { yPercent: 100, autoAlpha: 0 }, 
+//         { 
+//           yPercent: 0, autoAlpha: 1,
+//           ease: "none",
+//           scrollTrigger: {
+//             trigger: image.parentElement, 
+//             start: 'top bottom',
+//             end: () => "+=" + image.parentElement.offsetHeight,
+//             scrub: 1
+//           }
+//         }
+//       );
+//     });
+
+//     let leftImages = slide.querySelectorAll('.left');
+//     leftImages.forEach((leftImage) => {
+//       gsap.fromTo(leftImage, 
+//         { yPercent: -100, autoAlpha: 0 }, 
+//         { 
+//           yPercent: 0, autoAlpha: 1,
+//           ease: "none",
+//           scrollTrigger: {
+//             trigger: leftImage.parentElement, 
+//             start: 'top bottom',
+//             end: () => "+=" + leftImage.parentElement.offsetHeight,
+//             scrub: 1
+//           }
+//         }
+//       );
+//     });
+//   });
+// }
+
+
+
+
+
+
 
 
 
@@ -264,3 +375,60 @@ const fullSwiperSlider = () =>{
     });
 	}
 }
+
+$(document).ready(function () {
+    $('#pagepiling').pagepiling({
+        menu: null,
+        direction: 'vertical',
+        verticalCentered: true,
+        sectionsColor: [],
+        anchors: [],
+        scrollingSpeed: 700,
+        easing: 'swing',
+        loopBottom: false,
+        loopTop: false,
+        css3: true,
+        navigation: {
+            'textColor': '#000',
+            'bulletsColor': '#000',
+            'position': 'right',
+            'tooltips': ['section1', 'section2', 'section3' , 'section4']
+        },
+        normalScrollElements: '.content',
+        normalScrollElementTouchThreshold: 5,
+        touchSensitivity: 5,
+        keyboardScrolling: true,
+        sectionSelector: '.section',
+        animateAnchor: false,
+
+        // Обработка событий
+        onLeave: function(index, nextIndex, direction) {
+
+            if (nextIndex === 4 && direction === 'down') {
+                $('html').addClass('normal-scroll'); 
+            }
+
+            if (nextIndex === 3 && direction === 'up') {
+                $('html').removeClass('normal-scroll'); // Убираем класс с HTML
+            }
+        },
+        afterLoad: function(anchorLink, index) {},
+		afterRender: function() {
+			$.fn.pagepiling.moveTo(1);
+		}
+    });
+});
+
+// Функция для прокрутки страницы вверх
+const scrollToTop = () => {
+	setTimeout(() => {
+	  window.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	  });
+	}, 100); // Задержка 100 мс
+  };
+  
+  // Запускаем функцию при загрузке страницы
+  window.addEventListener('load', scrollToTop);
+  

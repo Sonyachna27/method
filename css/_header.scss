@@ -1,8 +1,13 @@
 .header{
-	background: #fff;
+	position: fixed;
+	width: 100%;
+	z-index: 6;
+	&.normal-scroll {
+		background: #fff;
+
+	}
 }
 .header__container{
-	background-color: $--white;
 	padding: 30px 10px 34px 0px;
 	display: flex;
 	align-items: center;
@@ -62,7 +67,7 @@ opacity: 1;
 		width: 100%;
 		background-color: $--green;
 		transition: .3s ease-in-out;
-		.active & {
+		.header-active & {
 			&:nth-of-type(2){
 				opacity: 0;
 			}
@@ -88,6 +93,14 @@ opacity: 1;
 	}
 	
 }
+.header-active {
+	& .header-nav {
+		transform: translateX(0%);
+	}
+	& header {
+		background-color: #fff;
+	}
+}
 .header-nav{
 	position: fixed;
 	top:85px;
@@ -103,9 +116,6 @@ opacity: 1;
 	display: flex;
 	align-items: start;
 	justify-content: center;
-	.active &{
-		transform: translateX(0%);
-	}
 	& nav{
 		& ul{
 			display: flex;
