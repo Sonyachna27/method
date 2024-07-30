@@ -150,11 +150,6 @@ background-color: $--green;
 section.section {
 	text-align: center;
 	height: 100vh; 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 2em;
-	color: #fff;
 }
 .main {
 	background-color: #fff;
@@ -162,7 +157,7 @@ section.section {
 .content {
 	position: relative;
 	top: 100vh;
-	margin-bottom: 100vh
+	
 }
 
 .normal-scroll {
