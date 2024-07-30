@@ -182,8 +182,8 @@ const fullHorizontalScroll = () => {
     fullSwiperSliders.forEach((slider, i) => {
       ScrollTrigger.create({
         trigger: slider,
-        // start: "left center",
-        // end: "right center",
+        start: "left center",
+        end: "right center",
         onUpdate: (self) => {
           if (self.isActive) {
             slider.classList.add('visible-slide');
