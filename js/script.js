@@ -8,9 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	playVideo();
 	fullSwiperSlider();
 	horizontalScroll();
-	updateScrollLengthDivs();
-	fullHorizontalScroll();
-	// animateImagesFunction();
 });
 
 
@@ -175,68 +172,6 @@ const horizontalScroll = () => {
 };
 
 
-
-const fullHorizontalScroll = () => {
-  const fullProcess = document.querySelector('.full-wrap');
-  if (fullProcess) {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    const fullSwiperSliders = gsap.utils.toArray('.full__item');
-    fullProcess.style.width = `calc(100% * ${fullSwiperSliders.length})`;
-	
-    fullSwiperSliders.forEach(item => item.style.width = `100%`);
-    
-    fullSwiperSliders.forEach((slider, i) => {
-      ScrollTrigger.create({
-        trigger: slider,
-        start: "left center",
-        end: "right center",
-        onUpdate: (self) => {
-          if (self.isActive) {
-            slider.classList.add('visible-slide');
-          } else {
-            slider.classList.remove('visible-slide');
-          }
-        },
-        markers: false
-      });
-    });
-	
-    gsap.to(fullSwiperSliders, {
-      xPercent: -100 * (fullSwiperSliders.length - 1),
-      ease: "none",
-      scrollTrigger: {
-        trigger: fullProcess,
-        markers: false,
-        scrub: 1,
-        pin: true,
-        end: () => "+=" + fullProcess.offsetWidth
-      }
-    });
-  }
-};
-
-const updateScrollLengthDivs = () => {
-  const fullProcess = document.querySelector('.full-wrap');
-  const scrollLengthContainers = document.querySelectorAll('.full-scroll-length'); 
-  
-  if (fullProcess && scrollLengthContainers.length > 0) {
-    const fullSwiperSliders = document.querySelectorAll('.full__item');
-    
-    scrollLengthContainers.forEach(scrollLengthContainer => {
-      scrollLengthContainer.innerHTML = '';
-
-      fullSwiperSliders.forEach(() => {
-        const newDiv = document.createElement('div');
-        scrollLengthContainer.appendChild(newDiv);
-      });
-    });
-  }
-};
-
-
-
-
 const heartAnimation = () =>{
 const heartWrap = document.querySelector('.heart');
 	if(heartWrap){
@@ -274,28 +209,23 @@ const heartWrap = document.querySelector('.heart');
 }
 const fullSwiperSlider = () =>{
 	const fullSliderInit = document.querySelector('.fullSlider');
+	
 	if(fullSliderInit){
 	
-		var fullSlider = new Swiper(".fullSlider", {
-      
-      freeMode: true,
+		const fullSlider = new Swiper(".fullSlider", {
+     
       watchSlidesProgress: true,
 			pagination: {
-        el: ".full-pagination",
+        el: ".fullSlider-pagination",
 				clickable: true,
 				type: 'bullets',
       },
+				mousewheel: {
+					releaseOnEdges: true,
+					forceToAxis: true
+				},
     });
-    var fullSlider2 = new Swiper(".fullSlider2", {
-     pagination: {
-        el: ".full-pagination",
-				clickable: true,
-				type: 'bullets',
-      },
-      thumbs: {
-        swiper: fullSlider,
-      },
-    });
+   
 	}
 }
 

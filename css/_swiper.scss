@@ -1,23 +1,30 @@
 
-.full{
-overflow: hidden;
+// .full{
+// overflow: hidden;
+// }
+
+.swiper-wrapper{
+	width: 100%;
+  height: 100%;
 }
-.full-scroll{
-	display: flex;
-	flex-wrap: nowrap;
-	height: 100vh;
-}
+// .full-wrap{
+// 	height: calc(100vh - 102px);
+// }
 .full__item{
 	height: 100%;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 50px;
 	text-align: center;
 	& img{
 		object-fit: cover;
-		max-height: 85%;
+		// max-height: 85vh;
+		max-width: 100%;
+		width: 100%;
+aspect-ratio: 1280 / 768;
 		height: 100%;
+		max-height: 80%;
 	}
 	& p{
 		max-width: 600px;
@@ -26,23 +33,20 @@ overflow: hidden;
 	}
 
 }
-.full-scroll-length{
-	max-width: 600px;
-	margin: 0 auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-	& div{
-		background: #1F305E;
-		transition: .3s ease;
-		opacity: 1;
-		width: 15px;
-		height: 15px;
-		border-radius: 50%;
-		.visible-slide &{
-			background-color: $--green;
-		}
-	}
+.swiper-pagination-bullets.fullSlider-pagination{
+	transform: translate(-50%, 0%);
+	left: 50%;
+	position: relative;
+	width: fit-content;
+	z-index: 1;
+	bottom: 60px;
 }
-
+.fullSlider-pagination .swiper-pagination-bullet{
+	background: #1F305E;
+	opacity: 1;
+	width: 15px;
+	height: 15px;
+}
+.fullSlider-pagination .swiper-pagination-bullet-active{
+	background-color: $--green;
+}
