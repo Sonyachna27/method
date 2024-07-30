@@ -44,8 +44,15 @@ const openMobMenu = () =>{
 	if(BURGER){
 		BURGER.addEventListener('click', () =>{
 			HMTLELEMENT.classList.toggle('header-active');
+			const navLinks = document.querySelectorAll("nav a");
+			navLinks.forEach((link) => {
+				link.addEventListener("click", () => {
+					HMTLELEMENT.classList.remove("header-active");
+				});
+			});
 		})
 	}
+	
 }
 const scrollHeader = () =>{
 	const scrollHeader = document.querySelector('.scroll-header');
