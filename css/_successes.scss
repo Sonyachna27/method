@@ -13,13 +13,14 @@
   display: flex;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
+	// width: 300%;
 }
 
 .captured__item{
 	display: flex;
 	flex-direction: column;
 	height: 90vh;
-
+	width:33%;
 		& img{
 			aspect-ratio: 1;
 			flex-grow: 1;

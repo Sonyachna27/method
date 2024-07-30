@@ -1,7 +1,7 @@
 
 .slider-block{
 	display: flex;
-	height: 100%;
+	height: 100vh;
 	& img {
 		width: 100%;
 		flex-grow: 1;
@@ -12,21 +12,19 @@
 img.right,
 img.left {
   width: 50%;
-  height: 100%;
-	animation-duration: .5s;
+  height: auto;
+	animation-duration: .8s;
 	transition: .8s ease;
-	// animation-fill-mode: forwards;
-	// transform: translateY(0);
 }
 img.right{
-	// animation-name:killAnimateRightImages;
+	animation-name:killAnimateRightImages;
 transform: translateY(0%);
 	.active &{
 		animation-name: animateRightImages;
 			}
 }
 img.left{
-// animation-name:killAnimateRLeftImages;
+animation-name:killAnimateRLeftImages;
 transform: translateY(0%);
 	.active &{
 		animation-name: animateLeftImages;

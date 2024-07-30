@@ -110,43 +110,63 @@ const playVideo = () =>{
 
 const horizontalScroll = () => {
   const process = document.querySelector('.process');
-  if ((typeof(process) != 'undefined' && process != null)) {
-		gsap.registerPlugin(ScrollTrigger);
+  if (process) {
+    gsap.registerPlugin(ScrollTrigger);
     let sections = gsap.utils.toArray('.process__item');
-    ScrollTrigger.matchMedia({
-      "(min-width: 768px)": function() {
-        process.style.width = `calc(100% * ${sections.length})`;
-        sections.forEach(item => item.style.width = `calc((100% / ${sections.length}) / 3)`);
-        gsap.to(sections, {
-          xPercent: -100 * (sections.length - 1),
-          ease: "none",
-          scrollTrigger: {
-            trigger: process,
-            markers: false,
-            scrub: 1,
-            pin: true,
-            end: () => "+=" + document.querySelector(".process").offsetWidth
-          },
-        });
-      },
-      "(max-width: 767px)": function() {
-        process.style.width = `calc(100% * ${sections.length})`;
-        sections.forEach(item => item.style.width = `100%`);
-        gsap.to(sections, {
-          xPercent: -100 * (sections.length - 1),
-          ease: "none",
-          scrollTrigger: {
-            trigger: process,
-            markers: false,
-            scrub: 1,
-            pin: true,
-            end: () => "+=" + document.querySelector(".process").offsetWidth
-          },
-        });
-      }
-    });
+    
+    if (sections.length > 3) {
+      ScrollTrigger.matchMedia({
+        "(min-width: 768px)": function() {
+          const slidesPerRow = 3;
+          const sectionsCount = sections.length;
+					process.style.width = `calc(100% * ${sectionsCount})`;
+          sections.forEach(item => item.style.width = `33vw`);
+          
+          gsap.to(sections, {
+            xPercent: -100 * (sectionsCount - slidesPerRow),
+            ease: "none",
+            scrollTrigger: {
+              trigger: process,
+              scrub: 1,
+              pin: true,
+              end: () => `+=${(sectionsCount - slidesPerRow) * window.innerWidth / slidesPerRow}`,
+              onUpdate: self => {
+                const lastSlide = sections[sectionsCount - 1];
+                const lastSlideRect = lastSlide.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
+                if (lastSlideRect.left >= 0 && lastSlideRect.right <= viewportWidth) {
+                  self.scrollTrigger.kill(); 
+                }
+              }
+            }
+          });
+        },
+        "(max-width: 767px)": function() {
+          sections.forEach(item => item.style.width = `100%`);
+          gsap.to(sections, {
+            xPercent: -100 * (sections.length - 1),
+            ease: "none",
+            scrollTrigger: {
+              trigger: process,
+              scrub: 1,
+              pin: true,
+              end: () => "+=" + process.offsetWidth,
+              onUpdate: self => {
+                const lastSlide = sections[sections.length - 1];
+                const lastSlideRect = lastSlide.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
+                if (lastSlideRect.left >= 0 && lastSlideRect.right <= viewportWidth) {
+                  self.scrollTrigger.kill();
+                }
+              }
+            }
+          });
+        }
+      });
+    }
   }
-}
+};
+
 
 
 const fullHorizontalScroll = () => {
@@ -206,110 +226,6 @@ const updateScrollLengthDivs = () => {
     });
   }
 };
-
-
-
-// const animateImagesFunction = () => {
-//   gsap.registerPlugin(ScrollTrigger);
-
-//   let currentIndex = 0;
-//   let animating;
-//   let swipePanels = gsap.utils.toArray(".full-slide");
-
- 
-//   let reversedPanels = [...swipePanels].reverse();
-//   reversedPanels.forEach((panel, index) => {
-//     gsap.set(panel, { zIndex: index });
-//   });
-
-//   // Створення спостерігача та його відключення на початку
-//   let intentObserver = ScrollTrigger.observe({
-//     type: "wheel,touch",
-//     onUp: () => !animating && gotoPanel(currentIndex - 1, false),
-//     onDown: () => !animating && gotoPanel(currentIndex + 1, true),
-//     tolerance: 10,
-//     preventDefault: true
-//   });
-//   intentObserver.disable();
-
-//   // Обробка анімацій swipe panels
-//   function gotoPanel(index, isScrollingDown) {
-//     animating = true;
-//     // Повернення до нормального скролу, якщо ми досягли кінця або повернулися до початку
-//     if ((index === swipePanels.length && isScrollingDown) || (index === -1 && !isScrollingDown)) {
-//       intentObserver.disable();
-//       return;
-//     }
-
-//     let target = isScrollingDown ? swipePanels[currentIndex] : swipePanels[index];
-//     gsap.to(target, {
-//       yPercent: isScrollingDown ? -100 : 0,
-//       duration: 0.75,
-//       onComplete: () => (animating = false)
-//     });
-
-//     currentIndex = index;
-//   }
-
-//   // Закріплення swipe секції та ініціація спостерігача
-//   ScrollTrigger.create({
-//     trigger: ".slider",
-//     pin: true,
-//     start: "top top",
-//     onEnter: () => {
-//       intentObserver.enable();
-//       gotoPanel(currentIndex + 1, true);
-//     },
-//     onEnterBack: () => {
-//       intentObserver.enable();
-//       gotoPanel(currentIndex - 1, false);
-//     }
-//   });
-
-//   // Анімація зображень всередині слайдів
-//   swipePanels.forEach((slide, index) => {
-//     slide.classList.add(`slide-${index}`);
-    
-//     let rightImages = slide.querySelectorAll('.right');
-//     rightImages.forEach((image) => {
-//       gsap.fromTo(image, 
-//         { yPercent: 100, autoAlpha: 0 }, 
-//         { 
-//           yPercent: 0, autoAlpha: 1,
-//           ease: "none",
-//           scrollTrigger: {
-//             trigger: image.parentElement, 
-//             start: 'top bottom',
-//             end: () => "+=" + image.parentElement.offsetHeight,
-//             scrub: 1
-//           }
-//         }
-//       );
-//     });
-
-//     let leftImages = slide.querySelectorAll('.left');
-//     leftImages.forEach((leftImage) => {
-//       gsap.fromTo(leftImage, 
-//         { yPercent: -100, autoAlpha: 0 }, 
-//         { 
-//           yPercent: 0, autoAlpha: 1,
-//           ease: "none",
-//           scrollTrigger: {
-//             trigger: leftImage.parentElement, 
-//             start: 'top bottom',
-//             end: () => "+=" + leftImage.parentElement.offsetHeight,
-//             scrub: 1
-//           }
-//         }
-//       );
-//     });
-//   });
-// }
-
-
-
-
-
 
 
 

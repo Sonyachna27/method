@@ -556,7 +556,7 @@ section.section {
 }
 .slider-block {
   display: flex;
-  height: 100%;
+  height: 100vh;
 }
 .slider-block img {
   width: 100%;
@@ -569,12 +569,13 @@ section.section {
 img.right,
 img.left {
   width: 50%;
-  height: 100%;
-  animation-duration: 0.5s;
+  height: auto;
+  animation-duration: 0.8s;
   transition: 0.8s ease;
 }
 
 img.right {
+  animation-name: killAnimateRightImages;
   transform: translateY(0%);
 }
 .active img.right {
@@ -582,6 +583,7 @@ img.right {
 }
 
 img.left {
+  animation-name: killAnimateRLeftImages;
   transform: translateY(0%);
 }
 .active img.left {
@@ -752,6 +754,7 @@ img.left {
   display: flex;
   flex-direction: column;
   height: 90vh;
+  width: 33%;
 }
 .captured__item img {
   aspect-ratio: 1;
