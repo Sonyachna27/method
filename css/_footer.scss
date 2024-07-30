@@ -3,7 +3,7 @@
 	background-color: $--dark-blue;
 	color: $--white;
 	overflow: hidden;
-	margin-top: 100vh;
+	margin-top: auto;
 }
 .footer__container{
 	display: flex;
@@ -15,9 +15,7 @@
 .footer__bottom{
 	transform: translateY(10px);
 }
-.footer-logo{
-	// margin-bottom: 60px;
-}
+
 .footer__contact{
 	display: flex;
 	flex-direction: column;

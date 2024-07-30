@@ -1,6 +1,7 @@
 .news{
 	padding: 200px 0;
 	background: #DFDFDF;
+	// height: 100vh;
 box-shadow: 0px 0px 250px 63px rgba(0, 0, 0, 0.05) inset;
 }
 .news__container{
@@ -17,23 +18,22 @@ box-shadow: 0px 0px 250px 63px rgba(0, 0, 0, 0.05) inset;
 	transition: .3s ease-in-out;
 	@media screen and (max-width:767px) {
 	width: 100%;
-}
-	&:hover{
-		& a:has(img){
-			border-color: $--green;
-			aspect-ratio: 1 / 1;
-		}
+}	
+&.current-page{
+	& img{
+		border: 4px solid transparent;
+	border-color: $--green ;
 	}
-	& a:has(img){
-		border-radius: 50%;
-		aspect-ratio: 1 / 1;
-		border: 5px solid transparent;
-		flex-grow: 1;
-	
-		& img{
+}
+			& img{
 			border-radius: 50%;
 			object-fit: cover;
-
+			aspect-ratio: 1;
+			border: 4px solid transparent;
+			
 		}
+	
 	}
+.news__item-content{
+	gap: 60px;
 }
