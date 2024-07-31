@@ -117,12 +117,12 @@ const horizontalScroll = () => {
   if (process) {
     gsap.registerPlugin(ScrollTrigger);
     let sections = gsap.utils.toArray('.process__item');
-    
+		const slidesPerRow = 3;
+		const sectionsCount = sections.length;
     if (sections.length > 3) {
       ScrollTrigger.matchMedia({
         "(min-width: 768px)": function() {
-          const slidesPerRow = 3;
-          const sectionsCount = sections.length;
+         
 					process.style.width = `calc(100% * ${sectionsCount})`;
           sections.forEach(item => item.style.width = `33vw`);
           
@@ -134,18 +134,16 @@ const horizontalScroll = () => {
               scrub: 1,
               pin: true,
               end: () => `+=${(sectionsCount - slidesPerRow) * window.innerWidth / slidesPerRow}`,
-              onUpdate: self => {
-                const lastSlide = sections[sectionsCount - 1];
-                const lastSlideRect = lastSlide.getBoundingClientRect();
-                const viewportWidth = window.innerWidth;
-                if (lastSlideRect.left >= 0 && lastSlideRect.right <= viewportWidth) {
-                  self.scrollTrigger.kill(); 
-                }
-              }
+              // onUpdate: self => {
+              //   const lastSlide = sections[sectionsCount - 1];
+              //   const lastSlideRect = lastSlide.getBoundingClientRect();
+              //   const viewportWidth = window.innerWidth;
+              // }
             }
           });
         },
         "(max-width: 767px)": function() {
+					process.style.width = `calc(100% * ${sectionsCount})`;
           sections.forEach(item => item.style.width = `100%`);
           gsap.to(sections, {
             xPercent: -100 * (sections.length - 1),
@@ -155,14 +153,11 @@ const horizontalScroll = () => {
               scrub: 1,
               pin: true,
               end: () => "+=" + process.offsetWidth,
-              onUpdate: self => {
-                const lastSlide = sections[sections.length - 1];
-                const lastSlideRect = lastSlide.getBoundingClientRect();
-                const viewportWidth = window.innerWidth;
-                if (lastSlideRect.left >= 0 && lastSlideRect.right <= viewportWidth) {
-                  self.scrollTrigger.kill();
-                }
-              }
+              // onUpdate: self => {
+              //   const lastSlide = sections[sections.length - 1];
+              //   const lastSlideRect = lastSlide.getBoundingClientRect();
+              //   const viewportWidth = window.innerWidth;
+              // }
             }
           });
         }

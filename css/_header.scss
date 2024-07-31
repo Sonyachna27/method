@@ -17,8 +17,8 @@
 	
 }
 .scroll-header{
-	visibility: hidden;
-	display: none;
+	// visibility: hidden;
+	transition: all .5s;
 	&.fixed-header-nav {
 		background-color: #fff;
     top: 0;
@@ -29,22 +29,6 @@
     width: 100%;
 		border-bottom: 3px solid $--green;
 		z-index: 120;
-	}
-	@keyframes smoothScroll {
-		0% {
-		transform: translateY(-40px);
-		}
-		100% {
-		transform: translateY(0px);
-		}
-	}
-	@keyframes removeSmoothScroll {
-		0% {
-		transform: translateY(40px);
-		}
-		100% {
-		transform: translateY(0px);
-		}
 	}
 }
 .burger{
@@ -57,7 +41,6 @@
 	transition: .3s ease-in-out;
 	animation-fill-mode: forwards;
 	animation-duration: 1s;
-	opacity: 0;
 	margin-left: auto;
 	.fixed-header-nav &{
 opacity: 1;
@@ -87,9 +70,14 @@ opacity: 1;
 	max-width: 197px;
 	width: 100%;
 	height: 34px;
-	transition: .3s ease-in-out;
+	transition: .5s ease-in-out;
 	&.hidden-logo{
-		display: none;
+		visibility: hidden;
+		opacity: 0;
+		.fixed-header-nav & {
+			visibility: visible;
+			opacity: 1;
+		}
 	}
 	
 }
