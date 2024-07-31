@@ -13,6 +13,9 @@
 	padding: 0 30px;
 	& img{
 		width: 25%;
+		@media screen and (max-width:640px) {
+			width: 45%;
+		}
 	}
 	& p{
 		font-size: 24px;
@@ -34,7 +37,25 @@
 	width: 100%;
 	@media screen and (max-width:767px) {
 		& svg{
-			max-width: 40%;
+			&:nth-of-type(1){
+				width: 24%;
+			}
+			&:nth-of-type(2){
+				width: 15%;
+			}
+			&:nth-of-type(3){
+				width: 9.8%;
+			}
+			&:nth-of-type(4){
+				width: 15%;
+			}
+			&:nth-of-type(5){
+				width: 17%;
+			}
+			&:nth-of-type(6){
+				width: 16%;
+			}
+
 		}
 	}
 	& svg:not([class]){
@@ -42,6 +63,9 @@
 		animation-fill-mode: forwards;
 		&:first-child{
 			transform: translateX(45px);
+			@media screen and (max-width:640px) {
+				// width: ;
+			}
 		}
 		&:nth-of-type(2){
 			transform: translateX(35px);
