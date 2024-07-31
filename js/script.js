@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	scrollHeader();
 	playVideo();
 	fullSwiperSlider();
+	horizontalScroll();
 });
 
 
@@ -278,4 +279,5 @@ setTimeout(() => {
 
 // Запускаем функцию при загрузке страницы
 window.addEventListener('load', scrollToTop);
+
 window.addEventListener('resize', horizontalScroll());
