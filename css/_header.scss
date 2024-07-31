@@ -17,7 +17,6 @@
 	
 }
 .scroll-header{
-	// visibility: hidden;
 	transition: all .5s;
 	&.fixed-header-nav {
 		background-color: #fff;
@@ -42,8 +41,11 @@
 	animation-fill-mode: forwards;
 	animation-duration: 1s;
 	margin-left: auto;
-	.fixed-header-nav &{
-opacity: 1;
+	.scroll-header &{
+		opacity: 0;
+	}
+	.scroll-header.fixed-header-nav &{
+		opacity: 1;
 	}
 	& span{
 		height: 8px;
@@ -104,6 +106,9 @@ opacity: 1;
 	display: flex;
 	align-items: start;
 	justify-content: center;
+	@media screen and (max-width:1023px) {
+		align-items: center;
+	}
 	& nav{
 		& ul{
 			display: flex;
@@ -111,7 +116,12 @@ opacity: 1;
 			gap: 68px;
 			text-align: center;
 			align-items: center;
-		}
+			@media screen and (max-width:1023px) {
+				gap: 34px;
+				}
+					@media screen and (max-width:767px) {
+						gap: 20px;
+				}
 		& li{
 		&	.header__socials{
 				display: flex;
@@ -142,6 +152,12 @@ opacity: 1;
 			text-transform: uppercase;
 			color: $--dark-blue;
 			transition: .3s ease-in-out;
+			@media screen and (max-width:1023px) {
+				font-size: 45px;
+		}
+			@media screen and (max-width:767px) {
+				font-size: 26px;
+		}
 			&:after{
 				content: '';
 				width: 0%;
@@ -160,7 +176,7 @@ opacity: 1;
 		}
 	}
 }
-
+}
 @keyframes burgerOpacity{
 	from{
 		opacity: 0;

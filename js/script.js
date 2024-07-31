@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	scrollHeader();
 	playVideo();
 	fullSwiperSlider();
-	horizontalScroll();
 });
 
 
@@ -64,19 +63,16 @@ const scrollHeader = () =>{
 					if (scrollTop > 100) {
 						scrollHeader.classList.add("fixed-header-nav");
 						scrollHeader.style.animationName = "smoothScroll";
-						// setTimeout(() => BURGER.style.animationName = 'burgerOpacity', 300);
 						setTimeout(() => headerLogo.style.display = 'block', 100);
 						setTimeout(() => headerLogo.style.animationName = 'burgerOpacity', 500);
 					}
 				} else if (scrollTop <= 0) {
 					scrollHeader.classList.remove("fixed-header-nav");
 					scrollHeader.style.animationName = "removeSmoothScroll";
-					// setTimeout(() => BURGER.style.animationName = 'removeBurgerOpacity', 300);
 					setTimeout(() => headerLogo.style.animationName = 'removeBurgerOpacity', 300);
 					setTimeout(() => headerLogo.style.display = 'none', 500);
 				}
 				lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-				// updateMenuPosition(scrollTop);
 			}
 		)
 	}
@@ -134,11 +130,6 @@ const horizontalScroll = () => {
               scrub: 1,
               pin: true,
               end: () => `+=${(sectionsCount - slidesPerRow) * window.innerWidth / slidesPerRow}`,
-              // onUpdate: self => {
-              //   const lastSlide = sections[sectionsCount - 1];
-              //   const lastSlideRect = lastSlide.getBoundingClientRect();
-              //   const viewportWidth = window.innerWidth;
-              // }
             }
           });
         },
@@ -153,11 +144,6 @@ const horizontalScroll = () => {
               scrub: 1,
               pin: true,
               end: () => "+=" + process.offsetWidth,
-              // onUpdate: self => {
-              //   const lastSlide = sections[sections.length - 1];
-              //   const lastSlideRect = lastSlide.getBoundingClientRect();
-              //   const viewportWidth = window.innerWidth;
-              // }
             }
           });
         }
@@ -292,4 +278,4 @@ setTimeout(() => {
 
 // Запускаем функцию при загрузке страницы
 window.addEventListener('load', scrollToTop);
-  
+window.addEventListener('resize', horizontalScroll());
