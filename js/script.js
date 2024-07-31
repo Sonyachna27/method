@@ -225,58 +225,71 @@ const fullSwiperSlider = () =>{
 }
 
 $(document).ready(function () {
-    $('#pagepiling').pagepiling({
-        menu: null,
-        direction: 'vertical',
-        verticalCentered: true,
-        sectionsColor: [],
-        anchors: [],
-        scrollingSpeed: 700,
-        easing: 'swing',
-        loopBottom: false,
-        loopTop: false,
-        css3: true,
-        navigation: {
-            'textColor': '#000',
-            'bulletsColor': '#000',
-            'position': 'right',
-            'tooltips': ['section1', 'section2', 'section3' , 'section4']
-        },
-        normalScrollElements: '.content',
-        normalScrollElementTouchThreshold: 5,
-        touchSensitivity: 5,
-        keyboardScrolling: true,
-        sectionSelector: '.section',
-        animateAnchor: false,
+	$('#pagepiling').pagepiling({
+			menu: null,
+			direction: 'vertical',
+			verticalCentered: true,
+			sectionsColor: [],
+			anchors: [],
+			scrollingSpeed: 700,
+			easing: 'swing',
+			loopBottom: false,
+			loopTop: false,
+			css3: true,
+			navigation: {
+					'textColor': '#000',
+					'bulletsColor': '#000',
+					'position': 'right',
+					'tooltips': ['section1', 'section2', 'section3', 'section4']
+			},
+			normalScrollElements: '.content',
+			normalScrollElementTouchThreshold: 5,
+			touchSensitivity: 5,
+			keyboardScrolling: true,
+			sectionSelector: '.section',
+			animateAnchor: false,
 
-        // Обработка событий
-        onLeave: function(index, nextIndex, direction) {
+			// Обработка событий
+			onLeave: function (index, nextIndex, direction) {
 
-            if (nextIndex === 4 && direction === 'down') {
-                $('html').addClass('normal-scroll'); 
-            }
+					// Проверяем, если мы достигли последней секции
+					if (nextIndex === 4 && direction === 'down') {
+							$('html').addClass('normal-scroll'); 
 
-            if (nextIndex === 3 && direction === 'up') {
-                $('html').removeClass('normal-scroll'); // Убираем класс с HTML
-            }
-        },
-        afterLoad: function(anchorLink, index) {},
-		afterRender: function() {
-			$.fn.pagepiling.moveTo(1);
-		}
-    });
+							// Проверка на мобильное устройство
+							if ($(window).width() <= 767) {
+									setTimeout(function () {
+											window.scrollBy({
+													top: window.innerHeight * 0.5,
+													behavior: 'smooth'
+											});
+									}, 200);
+							}
+					}
+
+					// Удаляем класс, если мы возвращаемся на предыдущую секцию
+					if (nextIndex === 3 && direction === 'up') {
+							$('html').removeClass('normal-scroll');
+					}
+			},
+			afterLoad: function (anchorLink, index) { },
+			afterRender: function () {
+					$.fn.pagepiling.moveTo(1);
+			}
+	});
 });
+
 
 // Функция для прокрутки страницы вверх
 const scrollToTop = () => {
-	setTimeout(() => {
-	  window.scrollTo({
-		top: 0,
-		behavior: 'smooth'
-	  });
-	}, 100); // Задержка 100 мс
-  };
-  
-  // Запускаем функцию при загрузке страницы
-  window.addEventListener('load', scrollToTop);
+setTimeout(() => {
+	window.scrollTo({
+	top: 0,
+	behavior: 'smooth'
+	});
+}, 100); // Задержка 100 мс
+};
+
+// Запускаем функцию при загрузке страницы
+window.addEventListener('load', scrollToTop);
   
