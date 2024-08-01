@@ -188,17 +188,17 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  gap: 60px;
 }
 .item__content p {
   margin-bottom: 20px;
 }
 .item__content p:nth-last-of-type(1) {
-  margin-bottom: auto;
+  margin-bottom: 0;
 }
 .item__content a {
   margin: 0 auto;
   margin-top: auto;
-  bottom: 0;
 }
 
 section.section {
@@ -212,8 +212,6 @@ section.section {
 
 .content {
   position: relative;
-  top: 100vh;
-  margin-bottom: 100vh;
 }
 
 .normal-scroll {
@@ -228,8 +226,6 @@ section.section {
 }
 
 .preload {
-  width: 100vw;
-  height: 100vh;
   top: 0;
   left: 0;
   right: 0;
@@ -255,7 +251,7 @@ section.section {
   position: relative;
   display: flex;
   align-items: center;
-  margin: 0 auto;
+  margin-top: 2%;
   background-color: rgba(120, 120, 128, 0.32);
   border-radius: 348.148px;
   padding: 7px 77px 7px 7px;
@@ -275,6 +271,12 @@ section.section {
   height: 94px;
   z-index: inherit;
   position: relative;
+}
+@media screen and (max-width: 640px) {
+  .white-circle {
+    height: auto;
+    aspect-ratio: 1;
+  }
 }
 
 @keyframes removeOpacityPreload {
@@ -535,6 +537,9 @@ section.section {
 .animate-logo {
   max-width: 531px;
   width: 100%;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  transform: translate(-19%, 0);
 }
 @media screen and (max-width: 767px) {
   .animate-logo svg:nth-of-type(1) {
@@ -556,8 +561,11 @@ section.section {
     width: 16%;
   }
 }
+.animate-logo svg {
+  height: auto;
+}
 .animate-logo svg:not([class]) {
-  animation-duration: 0.8s;
+  animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 .animate-logo svg:not([class]):first-child {
@@ -591,9 +599,23 @@ section.section {
     transform: translateX(0);
   }
 }
+@keyframes animateLogoWrap {
+  0% {
+    transform: translate(-19%, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.panel {
+  height: 100vh;
+  top: 0;
+  overflow: hidden;
+}
+
 .slider-block {
   display: flex;
-  height: 100vh;
+  height: 100%;
 }
 .slider-block img {
   width: 100%;
@@ -607,58 +629,8 @@ img.right,
 img.left {
   width: 50%;
   height: auto;
-  animation-duration: 0.8s;
-  transition: 0.8s ease;
 }
 
-img.right {
-  animation-name: killAnimateRightImages;
-  transform: translateY(0%);
-}
-.active img.right {
-  animation-name: animateRightImages;
-}
-
-img.left {
-  animation-name: killAnimateRLeftImages;
-  transform: translateY(0%);
-}
-.active img.left {
-  animation-name: animateLeftImages;
-}
-
-@keyframes animateRightImages {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-@keyframes killAnimateRightImages {
-  0% {
-    transform: translateY(0%);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-@keyframes animateLeftImages {
-  0% {
-    transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-@keyframes killAnimateLeftImages {
-  0% {
-    transform: translateY(0%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
 .mission {
   padding: 200px 0;
   background: #FFF;
@@ -770,7 +742,7 @@ img.left {
 }
 
 .successes {
-  padding: 200px 0;
+  padding: 200px 0 0 0;
 }
 
 .successes__title {
@@ -804,6 +776,11 @@ img.left {
   .captured__item img {
     height: 40%;
   }
+}
+
+.captured__item__content {
+  height: 100%;
+  flex-grow: 1;
 }
 
 .heart {
