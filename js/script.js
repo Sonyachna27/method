@@ -14,14 +14,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
 // const firstSlider = () => {
-// 	console.clear();
+//   console.clear();
 
-// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+//   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-// const sections = document.querySelectorAll(".panel");
+//   const sections = document.querySelectorAll(".panel");
 
-// const scrolling = {
+//   const scrolling = {
 //     enabled: true,
 //     events: "scroll,wheel,touchmove,pointermove".split(","),
 //     prevent: e => e.preventDefault(),
@@ -41,53 +42,309 @@ document.addEventListener("DOMContentLoaded", function () {
 //     }
 //   };
 
-// function goToSection(section, anims = []) {
-//   if (scrolling.enabled) { 
-//     scrolling.disable();
-//     gsap.to(window, {
-//       scrollTo: {y: section, autoKill: false},
-//       onComplete: scrolling.enable,
-//       duration: 1
+//   function goToSection(section, anims = []) {
+//     if (scrolling.enabled) { 
+//       scrolling.disable();
+//       gsap.to(window, {
+//         scrollTo: {y: section, autoKill: false},
+//         onComplete: scrolling.enable,
+//         duration: 2
+//       });
+
+//       // Restart all animations
+//       anims.forEach(anim => anim && anim.restart());
+//     }
+//   }
+
+//   sections.forEach((section, i) => {
+//     const rightElement = section.querySelector(".right");
+//     const leftElement = section.querySelector(".left");
+
+//     const anims = [];
+
+//     if (rightElement) {
+//       const rightAnim = gsap.fromTo(rightElement, 
+//         { yPercent: -100 }, 
+//         { yPercent: 0, duration: 1, paused: true }
+//       );
+//       anims.push(rightAnim);
+//     }
+
+//     if (leftElement) {
+//       const leftAnim = gsap.fromTo(leftElement, 
+//         { yPercent: 100 }, 
+//         { yPercent: 0, duration: 1, paused: true }
+//       );
+//       anims.push(leftAnim);
+//     }
+
+//     ScrollTrigger.create({
+//       trigger: section,
+//       start: "top bottom-=1",
+//       end: "bottom top+=1",
+//       onEnter: () => goToSection(section, anims),
+//       onEnterBack: () => goToSection(section, anims)
 //     });
-
-  
-//     anims.forEach(anim => anim && anim.restart());
-//   }
-// }
-
-// sections.forEach((section, i) => {
-//   const rightElement = section.querySelector(".right");
-//   const leftElement = section.querySelector(".left");
-
-//   const anims = [];
-
-  
-//   if (rightElement) {
-//     const rightAnim = gsap.fromTo(rightElement, 
-//       { yPercent: -100 }, 
-//       { yPercent: 0, duration: 1, paused: true }
-//     );
-//     anims.push(rightAnim);
-//   }
-
-//   if (leftElement) {
-//     const leftAnim = gsap.fromTo(leftElement, 
-//       { yPercent: 100 }, 
-//       { yPercent: 0, duration: 1, paused: true }
-//     );
-//     anims.push(leftAnim);
-//   }
-
-//   ScrollTrigger.create({
-//     trigger: section,
-//     start: "top bottom-=1",
-//     end: "bottom top+=1",
-//     onEnter: () => goToSection(section, anims),
-//     onEnterBack: () => goToSection(section, anims)
 //   });
-// });
-// }
 
+//   // Додаємо обробник для посилань з якорями
+//   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+//     anchor.addEventListener('click', function(e) {
+//       e.preventDefault();
+      
+//       const targetId = this.getAttribute('href').substring(1);
+//       const targetElement = document.getElementById(targetId);
+      
+//       if (targetElement) {
+//         scrolling.disable();
+//         gsap.to(window, {
+//           scrollTo: {y: targetElement, autoKill: false},
+//           onComplete: scrolling.enable,
+//           duration: 2
+//         });
+//       }
+//     });
+//   });
+// window.addEventListener('scroll', () => {
+// 	lastScrollY = window.scrollY;
+// });
+// }; // працює
+// const firstSlider = () => {
+//   console.clear();
+
+//   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+//   const sections = document.querySelectorAll(".panel");
+//   let lastScrollY = window.scrollY;
+
+//   const scrolling = {
+//     enabled: true,
+//     events: "scroll,wheel,touchmove,pointermove".split(","),
+//     prevent: e => e.preventDefault(),
+//     disable() {
+//       if (scrolling.enabled) {
+//         scrolling.enabled = false;
+//         window.addEventListener("scroll", gsap.ticker.tick, {passive: true});
+//         scrolling.events.forEach((e, i) => (i ? document : window).addEventListener(e, scrolling.prevent, {passive: false}));
+//       }
+//     },
+//     enable() {
+//       if (!scrolling.enabled) {
+//         scrolling.enabled = true;
+//         window.removeEventListener("scroll", gsap.ticker.tick);
+//         scrolling.events.forEach((e, i) => (i ? document : window).removeEventListener(e, scrolling.prevent));
+//       }
+//     }
+//   };
+
+//   function goToSection(section, anims = [], direction) {
+//     if (scrolling.enabled) { 
+//       scrolling.disable();
+//       gsap.to(window, {
+//         scrollTo: {y: section, autoKill: false},
+//         onComplete: scrolling.enable,
+//         duration: 2
+//       });
+
+//       anims.forEach(anim => {
+//         if (anim) {
+//           anim.yPercent = direction === 'down' ? -100 : 100;
+//           anim.restart();
+//         }
+//       });
+//     }
+//   }
+
+//   sections.forEach((section, i) => {
+//     const rightElement = section.querySelector(".right");
+//     const leftElement = section.querySelector(".left");
+
+//     const anims = [];
+
+//     if (rightElement) {
+//       const rightAnimDown = gsap.fromTo(rightElement, 
+//         { yPercent: -100 }, 
+//         { yPercent: 0, duration: 1, paused: true }
+//       );
+//       const rightAnimUp = gsap.fromTo(rightElement, 
+//         { yPercent: 100 }, 
+//         { yPercent: 0, duration: 1, paused: true }
+//       );
+//       anims.push({ down: rightAnimDown, up: rightAnimUp });
+//     }
+
+//     if (leftElement) {
+//       const leftAnimDown = gsap.fromTo(leftElement, 
+//         { yPercent: 100 }, 
+//         { yPercent: 0, duration: 1, paused: true }
+//       );
+//       const leftAnimUp = gsap.fromTo(leftElement, 
+//         { yPercent: -100 }, 
+//         { yPercent: 0, duration: 1, paused: true }
+//       );
+//       anims.push({ down: leftAnimDown, up: leftAnimUp });
+//     }
+
+//     ScrollTrigger.create({
+//       trigger: section,
+//       start: "top bottom-=1",
+//       end: "bottom top+=1",
+//       onEnter: () => {
+//         const direction = window.scrollY > lastScrollY ? 'down' : 'up';
+//         const directionAnims = anims.map(anim => anim[direction]);
+//         goToSection(section, directionAnims, direction);
+//       },
+//       onEnterBack: () => {
+//         const direction = window.scrollY > lastScrollY ? 'down' : 'up';
+//         const directionAnims = anims.map(anim => anim[direction]);
+//         goToSection(section, directionAnims, direction);
+//       }
+//     });
+//   });
+
+//   // Додаємо обробник для посилань з якорями
+//   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+//     anchor.addEventListener('click', function(e) {
+//       e.preventDefault();
+      
+//       const targetId = this.getAttribute('href').substring(1);
+//       const targetElement = document.getElementById(targetId);
+      
+//       if (targetElement) {
+//         scrolling.disable();
+//         gsap.to(window, {
+//           scrollTo: {y: targetElement, autoKill: false},
+//           onComplete: scrolling.enable,
+//           duration: 2
+//         });
+//       }
+//     });
+//   });
+
+//   // Update the lastScrollY position
+//   window.addEventListener('scroll', () => {
+//     lastScrollY = window.scrollY;
+//   });
+// }; // працюэ
+
+// const firstSlider = () => {
+//   console.clear();
+
+//   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+//   const sections = document.querySelectorAll(".panel");
+//   let lastScrollY = window.scrollY;
+
+//   const scrolling = {
+//     enabled: true,
+//     events: "scroll,wheel,touchmove,pointermove".split(","),
+//     prevent: e => e.preventDefault(),
+//     disable() {
+//       if (scrolling.enabled) {
+//         scrolling.enabled = false;
+//         window.addEventListener("scroll", gsap.ticker.tick, {passive: true});
+//         scrolling.events.forEach((e, i) => (i ? document : window).addEventListener(e, scrolling.prevent, {passive: false}));
+//       }
+//     },
+//     enable() {
+//       if (!scrolling.enabled) {
+//         scrolling.enabled = true;
+//         window.removeEventListener("scroll", gsap.ticker.tick);
+//         scrolling.events.forEach((e, i) => (i ? document : window).removeEventListener(e, scrolling.prevent));
+//       }
+//     }
+//   };
+
+//   function goToSection(section, anims = [], direction) {
+//     if (scrolling.enabled) { 
+//       scrolling.disable();
+//       gsap.to(window, {
+//         scrollTo: {y: section, autoKill: false},
+//         onComplete: () => {
+//           scrolling.enable();
+//           anims.forEach(anim => {
+//             if (anim) {
+//               anim.yPercent = direction === 'down' ? -100 : 100;
+//               anim.restart();
+//             }
+//           });
+//         },
+//         duration: 1,
+//       });
+//     }
+//   }
+
+//   sections.forEach((section, i) => {
+//     const rightElement = section.querySelector(".right");
+//     const leftElement = section.querySelector(".left");
+
+//     const anims = [];
+
+//     if (rightElement) {
+//       const rightAnimDown = gsap.fromTo(rightElement, 
+//         { yPercent: -100 }, 
+//         { yPercent: 0, duration: .5, paused: true }
+//       );
+//       const rightAnimUp = gsap.fromTo(rightElement, 
+//         { yPercent: 100 }, 
+//         { yPercent: 0, duration: .5, paused: true }
+//       );
+//       anims.push({ down: rightAnimDown, up: rightAnimUp });
+//     }
+
+//     if (leftElement) {
+//       const leftAnimDown = gsap.fromTo(leftElement, 
+//         { yPercent: 100 }, 
+//         { yPercent: 0, duration: .5, paused: true }
+//       );
+//       const leftAnimUp = gsap.fromTo(leftElement, 
+//         { yPercent: -100 }, 
+//         { yPercent: 0, duration: .5, paused: true }
+//       );
+//       anims.push({ down: leftAnimDown, up: leftAnimUp });
+//     }
+
+//     ScrollTrigger.create({
+//       trigger: section,
+//       start: "top bottom-=1",
+//       end: "bottom top+=1",
+//       onEnter: () => {
+//         const direction = window.scrollY > lastScrollY ? 'down' : 'up';
+//         const directionAnims = anims.map(anim => anim[direction]);
+//         goToSection(section, directionAnims, direction);
+//       },
+//       onEnterBack: () => {
+//         const direction = window.scrollY > lastScrollY ? 'down' : 'up';
+//         const directionAnims = anims.map(anim => anim[direction]);
+//         goToSection(section, directionAnims, direction);
+//       }
+//     });
+//   });
+
+//   // Додаємо обробник для посилань з якорями
+//   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+//     anchor.addEventListener('click', function(e) {
+//       e.preventDefault();
+      
+//       const targetId = this.getAttribute('href').substring(1);
+//       const targetElement = document.getElementById(targetId);
+      
+//       if (targetElement) {
+//         scrolling.disable();
+//         gsap.to(window, {
+//           scrollTo: {y: targetElement, autoKill: false},
+//           onComplete: scrolling.enable,
+//           duration: 2
+//         });
+//       }
+//     });
+//   });
+
+//   // Update the lastScrollY position
+//   window.addEventListener('scroll', () => {
+//     lastScrollY = window.scrollY;
+//   });
+// };//працьє
 
 
 const firstSlider = () => {
@@ -96,6 +353,7 @@ const firstSlider = () => {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
   const sections = document.querySelectorAll(".panel");
+  let lastScrollY = window.scrollY;
 
   const scrolling = {
     enabled: true,
@@ -117,17 +375,28 @@ const firstSlider = () => {
     }
   };
 
-  function goToSection(section, anims = []) {
+  function resetAnimations(anims) {
+    anims.forEach(anim => {
+      if (anim.down) anim.down.pause(0).progress(0);
+      if (anim.up) anim.up.pause(0).progress(0);
+    });
+  }
+
+  function goToSection(section, anims = [], direction) {
     if (scrolling.enabled) { 
       scrolling.disable();
       gsap.to(window, {
         scrollTo: {y: section, autoKill: false},
-        onComplete: scrolling.enable,
-        duration: 2
+        onComplete: () => {
+          scrolling.enable();
+          anims.forEach(anim => {
+            if (anim) {
+              anim.restart();
+            }
+          });
+        },
+        duration: 1,
       });
-
-      // Restart all animations
-      anims.forEach(anim => anim && anim.restart());
     }
   }
 
@@ -138,27 +407,45 @@ const firstSlider = () => {
     const anims = [];
 
     if (rightElement) {
-      const rightAnim = gsap.fromTo(rightElement, 
+      const rightAnimDown = gsap.fromTo(rightElement, 
         { yPercent: -100 }, 
-        { yPercent: 0, duration: 1, paused: true }
+        { yPercent: 0, duration: 0.5, paused: true }
       );
-      anims.push(rightAnim);
+      const rightAnimUp = gsap.fromTo(rightElement, 
+        { yPercent: 100 }, 
+        { yPercent: 0, duration: 0.5, paused: true }
+      );
+      anims.push({ down: rightAnimDown, up: rightAnimUp });
     }
 
     if (leftElement) {
-      const leftAnim = gsap.fromTo(leftElement, 
+      const leftAnimDown = gsap.fromTo(leftElement, 
         { yPercent: 100 }, 
-        { yPercent: 0, duration: 1, paused: true }
+        { yPercent: 0, duration: 0.5, paused: true }
       );
-      anims.push(leftAnim);
+      const leftAnimUp = gsap.fromTo(leftElement, 
+        { yPercent: -100 }, 
+        { yPercent: 0, duration: 0.5, paused: true }
+      );
+      anims.push({ down: leftAnimDown, up: leftAnimUp });
     }
 
     ScrollTrigger.create({
       trigger: section,
       start: "top bottom-=1",
       end: "bottom top+=1",
-      onEnter: () => goToSection(section, anims),
-      onEnterBack: () => goToSection(section, anims)
+      onEnter: () => {
+        const direction = window.scrollY > lastScrollY ? 'down' : 'up';
+        const directionAnims = anims.map(anim => anim[direction]);
+        resetAnimations(anims); // Reset animations before starting
+        goToSection(section, directionAnims, direction);
+      },
+      onEnterBack: () => {
+        const direction = window.scrollY > lastScrollY ? 'down' : 'up';
+        const directionAnims = anims.map(anim => anim[direction]);
+        resetAnimations(anims); // Reset animations before starting
+        goToSection(section, directionAnims, direction);
+      }
     });
   });
 
@@ -180,9 +467,12 @@ const firstSlider = () => {
       }
     });
   });
+
+  // Update the lastScrollY position
+  window.addEventListener('scroll', () => {
+    lastScrollY = window.scrollY;
+  });
 };
-
-
 
 
 const killPreload = () =>{
