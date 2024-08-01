@@ -147,7 +147,7 @@ const firstSlider = () => {
 
     if (leftElement) {
       const leftAnim = gsap.fromTo(leftElement, 
-        { yPercent: -100 }, 
+        { yPercent: 100 }, 
         { yPercent: 0, duration: 1, paused: true }
       );
       anims.push(leftAnim);
