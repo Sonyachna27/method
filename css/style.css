@@ -840,10 +840,6 @@ img.left {
   text-align: center;
 }
 
-.grid-section {
-  padding: 30px;
-}
-
 .grid__wrap {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -854,6 +850,7 @@ img.left {
 @media screen and (max-width: 1023px) {
   .grid__wrap {
     grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
 }
 
