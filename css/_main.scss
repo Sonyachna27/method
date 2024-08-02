@@ -1,6 +1,9 @@
 .main{
 	height: calc(100vh - 98px);
 	width: 100%;
+	&.panel{
+		display: block;
+	}
 }
 .main__container{
 	display: flex;
