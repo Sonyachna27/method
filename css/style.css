@@ -543,6 +543,9 @@ body {
   height: calc(100vh - 98px);
   width: 100%;
 }
+.main.panel {
+  display: block;
+}
 
 .main__container {
   display: flex;
@@ -701,7 +704,23 @@ body {
 }
 @media screen and (max-width: 640px) {
   .panel {
-    overflow: visible;
+    display: none;
+  }
+}
+
+.panels {
+  display: none;
+}
+@media screen and (max-width: 640px) {
+  .panels {
+    display: block;
+  }
+  .panels img {
+    width: 100%;
+    flex-grow: 1;
+    height: 50vh;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 }
 
@@ -1435,7 +1454,7 @@ ul.about__list li {
   position: relative;
   display: flex;
   gap: 15px;
-  align-items: center;
+  align-items: start;
 }
 ul.about__list li:before {
   content: counter(custom-counter) " ";

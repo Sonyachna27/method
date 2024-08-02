@@ -5,8 +5,20 @@
 	overflow: hidden;
 
 	@media screen and (max-width:640px) {
-		overflow:visible;
-		
+		display: none;
+	}
+}
+.panels{
+	display: none;
+	@media screen and (max-width:640px) {
+		display: block;
+		& img{
+			width: 100%;
+			flex-grow: 1;
+			height: 50vh;
+			object-fit: cover;
+	
+	}
 	}
 }
 .slider-block{

@@ -275,7 +275,7 @@ const horizontalScroll = () => {
 		const sectionsCount = sections.length;
     if (sections.length > 3) {
       ScrollTrigger.matchMedia({
-        "(min-width: 868px)": function() {
+        "(min-width: 1024px)": function() {
          
 					process.style.width = `calc(100% * ${sectionsCount})`;
           sections.forEach(item => item.style.width = `33vw`);
@@ -291,7 +291,7 @@ const horizontalScroll = () => {
             }
           });
         },
-        "(max-width: 867px)": function() {
+        "(max-width: 1023px)": function() {
 					process.style.width = `calc(100% * ${sectionsCount})`;
           sections.forEach(item => item.style.width = `100%`);
           gsap.to(sections, {
