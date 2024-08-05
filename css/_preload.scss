@@ -36,6 +36,8 @@
 	animation-duration: .7s;
 	 animation-fill-mode: forwards;
 	 transform: translateX(46%);
+	 overflow: hidden;
+    touch-action: pan-x;
 	 .remove &{
 		animation-name: changeSwitchPadding;
 	 } 

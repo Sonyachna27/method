@@ -262,6 +262,8 @@ body {
   animation-duration: 0.7s;
   animation-fill-mode: forwards;
   transform: translateX(46%);
+  overflow: hidden;
+  touch-action: pan-x;
 }
 .remove .preload-switch {
   animation-name: changeSwitchPadding;
