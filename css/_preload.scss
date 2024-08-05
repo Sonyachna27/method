@@ -14,7 +14,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	animation-duration: .5s;
+	animation-duration: .8s;
 	 animation-fill-mode: forwards;
 	 position: fixed;
 	 cursor: pointer;
@@ -34,7 +34,7 @@
 	z-index: 1;
 	max-width: 178px;
 	width: 100%;
-	animation-duration: 1s;
+	animation-duration: .7s;
 	 animation-fill-mode: forwards;
 	 transform: translateX(46%);
 	 .remove &{
@@ -70,10 +70,10 @@
 		opacity: 1;
 		z-index: 50;
 	}
-	50%{
-		opacity: .5;
-		z-index: 50;
-	}
+	// 50%{
+	// 	opacity: .9;
+	// 	z-index: 50;
+	// }
 	100%{
 		opacity: 0;
 		z-index: 0;

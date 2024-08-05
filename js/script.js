@@ -66,7 +66,8 @@ const firstSlider = () => {
 							}
 						});
 					},
-					duration: .5,
+					duration: 1,
+					
 				});
 			}
 		}
@@ -80,11 +81,11 @@ const firstSlider = () => {
 			if (rightElement) {
 				const rightAnimDown = gsap.fromTo(rightElement, 
 					{ yPercent: -100 }, 
-					{ yPercent: 0, duration: 0.5, paused: true }
+					{ yPercent: 0, duration: 0.4, paused: true, ease: "power1.inOut", }
 				);
 				const rightAnimUp = gsap.fromTo(rightElement, 
 					{ yPercent: 100 }, 
-					{ yPercent: 0, duration: 0.5, paused: true }
+					{ yPercent: 0, duration: 0.4, paused: true, ease: "power1.inOut", }
 				);
 				anims.push({ down: rightAnimDown, up: rightAnimUp });
 			}
@@ -92,19 +93,19 @@ const firstSlider = () => {
 			if (leftElement) {
 				const leftAnimDown = gsap.fromTo(leftElement, 
 					{ yPercent: 100 }, 
-					{ yPercent: 0, duration: 0.5, paused: true }
+					{ yPercent: 0, duration: 0.4, paused: true, ease: "power1.inOut", }
 				);
 				const leftAnimUp = gsap.fromTo(leftElement, 
 					{ yPercent: -100 }, 
-					{ yPercent: 0, duration: 0.5, paused: true }
+					{ yPercent: 0, duration: 0.4, paused: true, ease: "power1.inOut", }
 				);
 				anims.push({ down: leftAnimDown, up: leftAnimUp });
 			}
 	
 			ScrollTrigger.create({
 				trigger: section,
-				start: "top bottom-=1",
-				end: "bottom top+=1",
+				start: "top bottom-=200px",
+				end: "bottom top+=200px",
 				onEnter: () => {
 					const direction = window.scrollY > lastScrollY ? 'down' : 'up';
 					const directionAnims = anims.map(anim => anim[direction]);
@@ -147,25 +148,88 @@ const firstSlider = () => {
 };
 
 
-const killPreload = () =>{
+// const killPreload = () =>{
 
+// 	const preloadWrap = document.querySelector('.preload');
+// 	if(preloadWrap){
+// 		const logoWrap = document.querySelector('.animate-logo');
+// 		preloadWrap.addEventListener('click', ()=>{
+// 			preloadWrap.classList.add('remove');
+// 			HMTLELEMENT.classList.add('addscroll');
+// 		function animateCharacters(){
+// 			logoWrap.classList.add('animate');
+// 		}
+// 		setTimeout(() => animateCharacters(), 300);
+// 		setTimeout(() => BURGER.style.animationName = 'burgerOpacity', 1500);
+// 		setTimeout(() => preloadWrap.style.display = "none", 1000);
+// 	});
+// }
+// }
+
+const killPreload = () => {
 	const preloadWrap = document.querySelector('.preload');
-	if(preloadWrap){
-		const logoWrap = document.querySelector('.animate-logo');
-		const animeCircle = document.querySelector('.anime-circle');
-		const animeCirclePath = animeCircle.querySelector('path');
-		preloadWrap.addEventListener('click', ()=>{
-			preloadWrap.classList.add('remove');
-			HMTLELEMENT.classList.add('addscroll');
-		function animateCharacters(){
-			logoWrap.classList.add('animate');
-		}
-		setTimeout(() => animateCharacters(), 350);
-		setTimeout(() => BURGER.style.animationName = 'burgerOpacity', 1500);
-		setTimeout(() => preloadWrap.style.display = "none", 1000);
-	});
-}
-}
+	if (preloadWrap) {
+			const logoWrap = document.querySelector('.animate-logo');
+			const animeCircle = document.querySelector('.anime-circle');
+
+			const handleLargeScreenClick = () => {
+					preloadWrap.classList.add('remove');
+					document.documentElement.classList.add('addscroll');
+					logoWrap.classList.add('animate');
+					setTimeout(() => BURGER.style.animationName = 'burgerOpacity', 1500);
+					setTimeout(() => preloadWrap.style.display = "none", 1000);
+			};
+
+			const handleSmallScreenTouch = () => {
+					document.querySelector('html').classList.add('preloader');
+					const switchElement = document.querySelector('.preload-switch');
+					const circleElement = document.querySelector('.white-circle');
+					let startX = 0;
+					let currentX = 0;
+					let isSwiping = false;
+					const switchWidth = switchElement.offsetWidth;
+					const circleWidth = circleElement.offsetWidth;
+
+					const handleTouchStart = (event) => {
+							startX = event.touches[0].clientX;
+							isSwiping = true;
+					};
+
+					const handleTouchMove = (event) => {
+							if (!isSwiping) return;
+							currentX = event.touches[0].clientX;
+							const deltaX = currentX - startX;
+							const newLeft = Math.min(Math.max(0, deltaX), switchWidth - circleWidth);
+							circleElement.style.transform = `translateX(${newLeft}px)`;
+					};
+
+					const handleTouchEnd = () => {
+							if (!isSwiping) return;
+							isSwiping = false;
+							if (currentX - startX > switchWidth / 2) {
+									circleElement.style.transform = `translateX(${switchWidth - circleWidth}px)`;
+									preloadWrap.classList.add('remove');
+									document.documentElement.classList.add('addscroll');
+									logoWrap.classList.add('animate');
+									setTimeout(() => BURGER.style.animationName = 'burgerOpacity', 1500);
+									setTimeout(() => preloadWrap.style.display = "none", 1000);
+							} else {
+									circleElement.style.transform = `translateX(0px)`;
+							}
+					};
+
+					switchElement.addEventListener('touchstart', handleTouchStart);
+					switchElement.addEventListener('touchmove', handleTouchMove);
+					switchElement.addEventListener('touchend', handleTouchEnd);
+			};
+
+			if (window.innerWidth > 767) {
+					preloadWrap.addEventListener('click', handleLargeScreenClick);
+			} else {
+					handleSmallScreenTouch();
+			}
+	}
+};
 const heightSwitch = () =>{
 	const whiteCircle = document.querySelector('.white-circle');
 	if(!whiteCircle) return;
