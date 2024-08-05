@@ -66,8 +66,7 @@ const firstSlider = () => {
 							}
 						});
 					},
-					duration: 1,
-					
+					duration: .5,
 				});
 			}
 		}
@@ -81,11 +80,11 @@ const firstSlider = () => {
 			if (rightElement) {
 				const rightAnimDown = gsap.fromTo(rightElement, 
 					{ yPercent: -100 }, 
-					{ yPercent: 0, duration: 0.4, paused: true, ease: "power1.inOut", }
+					{ yPercent: 0, duration: 0.5, paused: true }
 				);
 				const rightAnimUp = gsap.fromTo(rightElement, 
 					{ yPercent: 100 }, 
-					{ yPercent: 0, duration: 0.4, paused: true, ease: "power1.inOut", }
+					{ yPercent: 0, duration: 0.5, paused: true }
 				);
 				anims.push({ down: rightAnimDown, up: rightAnimUp });
 			}
@@ -93,19 +92,19 @@ const firstSlider = () => {
 			if (leftElement) {
 				const leftAnimDown = gsap.fromTo(leftElement, 
 					{ yPercent: 100 }, 
-					{ yPercent: 0, duration: 0.4, paused: true, ease: "power1.inOut", }
+					{ yPercent: 0, duration: 0.5, paused: true }
 				);
 				const leftAnimUp = gsap.fromTo(leftElement, 
 					{ yPercent: -100 }, 
-					{ yPercent: 0, duration: 0.4, paused: true, ease: "power1.inOut", }
+					{ yPercent: 0, duration: 0.5, paused: true }
 				);
 				anims.push({ down: leftAnimDown, up: leftAnimUp });
 			}
 	
 			ScrollTrigger.create({
 				trigger: section,
-				start: "top bottom-=200px",
-				end: "bottom top+=200px",
+				start: "top bottom-=1",
+				end: "bottom top+=1",
 				onEnter: () => {
 					const direction = window.scrollY > lastScrollY ? 'down' : 'up';
 					const directionAnims = anims.map(anim => anim[direction]);
