@@ -200,7 +200,7 @@ const killPreload = () => {
 							currentX = event.touches[0].clientX;
 							const deltaX = currentX - startX;
 							const newLeft = Math.min(Math.max(0, deltaX), switchWidth - circleWidth);
-							// circleElement.style.transform = `translateX(${newLeft}px)`;
+							circleElement.style.transform = `translateX(${newLeft}px)`;
 					};
 
 					const handleTouchEnd = () => {
@@ -235,7 +235,7 @@ const heightSwitch = () =>{
 	if(!whiteCircle) return;
 		const svgWhiteCircle = document.querySelector('.anime-circle');
 	const svgWhiteCircleWidth = svgWhiteCircle.getBoundingClientRect().width;
-    if (WINDOWWIDTH <= 640) {
+    if (WINDOWWIDTH <= 768) {
 			whiteCircle.style.width = `${svgWhiteCircleWidth}px`;
 		}
 }

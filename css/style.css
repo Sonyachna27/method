@@ -266,13 +266,21 @@ body {
 .remove .preload-switch {
   animation-name: changeSwitchPadding;
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 767px) {
   .preload-switch {
     padding: 4px 45px 4px 4px;
-    max-width: 104px;
+    max-width: 138px;
+    margin-top: 6%;
+    transform: translateX(42%);
   }
   .remove .preload-switch {
     animation-name: changeSwitchPaddingMini;
+    animation-name: none;
+  }
+}
+@media screen and (max-width: 550px) {
+  .preload-switch {
+    max-width: 104px;
   }
 }
 
