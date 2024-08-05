@@ -238,7 +238,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  animation-duration: 0.5s;
+  animation-duration: 0.8s;
   animation-fill-mode: forwards;
   position: fixed;
   cursor: pointer;
@@ -259,7 +259,7 @@ body {
   z-index: 1;
   max-width: 178px;
   width: 100%;
-  animation-duration: 1s;
+  animation-duration: 0.7s;
   animation-fill-mode: forwards;
   transform: translateX(46%);
 }
@@ -296,10 +296,6 @@ body {
 @keyframes removeOpacityPreload {
   0% {
     opacity: 1;
-    z-index: 50;
-  }
-  50% {
-    opacity: 0.5;
     z-index: 50;
   }
   100% {
@@ -542,6 +538,7 @@ body {
 .main {
   height: calc(100vh - 98px);
   width: 100%;
+  height: 100vh;
 }
 .main.panel {
   display: block;
@@ -840,10 +837,6 @@ img.left {
   text-align: center;
 }
 
-.grid-section {
-  padding: 30px;
-}
-
 .grid__wrap {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -854,6 +847,7 @@ img.left {
 @media screen and (max-width: 1023px) {
   .grid__wrap {
     grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
 }
 
@@ -883,6 +877,7 @@ img.left {
 
 .process-wrap {
   overflow: hidden;
+  padding-bottom: 200px;
 }
 
 .process {
