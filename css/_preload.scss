@@ -30,7 +30,6 @@
 	background-color: $--fills-secondary;
 	border-radius: 348.148px;
 	padding: 7px 77px 7px 7px;
-
 	z-index: 1;
 	max-width: 178px;
 	width: 100%;
@@ -40,12 +39,18 @@
 	 .remove &{
 		animation-name: changeSwitchPadding;
 	 } 
-	 @media screen and (max-width:640px){
+	 @media screen and (max-width:767px){
 		padding: 4px 45px 4px 4px;
-		max-width: 104px;
+		max-width: 138px;
+		margin-top: 6%;
+		transform: translateX(42%);
 		.remove &{
 			animation-name: changeSwitchPaddingMini;
+			animation-name: none;
 		 }
+	 }
+	 @media screen and (max-width:550px){
+		max-width: 104px;
 	 }
 }
 
