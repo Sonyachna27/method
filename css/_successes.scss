@@ -1,11 +1,13 @@
 .successes{
-	padding: 200px 0 0 0;
+	padding: 200px  0;
 }
 .successes__title{
-	margin-bottom: 200px;
+	// margin-bottom: 200px;
 	padding: 0 10px;
 }
-
+.processSlider-wrap{
+	padding-bottom: 30px;
+}
 .process-wrap {
   overflow: hidden;
 	padding-bottom: 200px;
@@ -20,11 +22,9 @@
 	display: flex;
 	flex-direction: column;
 	padding-top: 50px;
-	aspect-ratio: 426 / 682;
 	height: 90vh;
 	width:33%;
 		& img{
-			aspect-ratio: 426 / 427;
 			flex-grow: 1;
 			object-fit: cover;
 			object-position: 100% 0%;
@@ -37,4 +37,11 @@
 	height: 100%;
 	flex-grow: 1;
 	height: 45vh;
+}
+.process-pagination.swiper-pagination-bullets{
+	width: fit-content;
+	margin: 0 auto;
+}
+.process-pagination .swiper-pagination-bullet{
+	background-color: $--green;
 }
